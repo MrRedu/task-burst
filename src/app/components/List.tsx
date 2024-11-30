@@ -7,6 +7,7 @@ import { useTasks } from "../stores/tasks/tasks.store";
 import { type TaskType } from "../types/Tasks.type";
 import { Task } from "./Task";
 import { Button } from "./Button";
+import NumberFlow from "@number-flow/react";
 
 export const List = () => {
   const tasks = useTasks((state) => state.tasks);
@@ -50,7 +51,7 @@ export const List = () => {
               `}
           />
         </div>
-        <Button type="submit" onClick={onSubmit} className={'px-3'}>
+        <Button type="submit" onClick={onSubmit} className={'px-3'} >
           <Plus /> Add
         </Button>
       </form >
@@ -61,6 +62,9 @@ export const List = () => {
           </p>
         )}
         <div className="flex items-center justify-start gap-2">
+          <span className="text-sm flex items-center">
+            (<NumberFlow value={tasks.length} />&nbsp;tasks)
+          </span>
           <Button
             onClick={orderAsc}
             isDisabled={tasks.length <= 1}
