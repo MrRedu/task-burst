@@ -31,7 +31,7 @@ export const List = () => {
     reset()
   })
 
-  const [parent, enableAnimations] = useAutoAnimate()
+  const [parent] = useAutoAnimate()
 
   return (
     <section className="flex flex-col gap-2 w-full h-full overflow-hidden">
