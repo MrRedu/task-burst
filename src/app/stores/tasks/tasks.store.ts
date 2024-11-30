@@ -28,7 +28,7 @@ export const useTasks = create<TaskState>()(
             toast.error("Task already exists");
             return state; // -> Return error because title is already in the list
           }
-          return { tasks: [...state.tasks, task] };
+          return { tasks: [task, ...state.tasks] };
         }),
       removeTask: (id) =>
         set((state) => ({

@@ -8,6 +8,7 @@ import { type TaskType } from "../types/Tasks.type";
 import { Task } from "./Task";
 import { Button } from "./Button";
 import NumberFlow from "@number-flow/react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const List = () => {
   const tasks = useTasks((state) => state.tasks);
@@ -29,9 +30,10 @@ export const List = () => {
     reset()
   })
 
+  const [parent, enableAnimations] = useAutoAnimate()
+
   return (
     <section className="flex flex-col gap-2 w-full h-full">
-
       <form onSubmit={onSubmit}
         className="flex items-start  w-full mx-auto gap-2"
       >
@@ -62,7 +64,8 @@ export const List = () => {
           </p>
         )}
         <div className="flex items-center justify-start gap-2">
-          <span className="text-sm flex items-center">
+          <span className={`text-sm flex items-center pointer-events-none
+            ${tasks.length === 0 && 'text-color-disabled'}`}>
             (<NumberFlow value={tasks.length} />&nbsp;tasks)
           </span>
           <Button
@@ -85,8 +88,8 @@ export const List = () => {
       {
         tasks.length > 0 && (
           <>
-            <ul className="divide-y divide-gray-200/80 max-h-[600px] md:max-h-max overflow-y-auto">
-              {tasks && tasks.map((task: TaskType) => (
+            <ul ref={parent} className="divide-y divide-gray-200/80 w-full max-h-[600px] md:max-h-full overflow-x-hidden overflow-y-auto ">
+              {tasks.map((task: TaskType) => (
                 <Task
                   key={task.id}
                   id={task.id}

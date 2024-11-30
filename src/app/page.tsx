@@ -13,13 +13,13 @@ export default function HomePage() {
       md:grid grid-cols-2 grid-rows-2 gap-2  md:overflow-hidden 
       rounded-xl relative mr-2 p-4 z-0
       ">
-        <Card>
+        <Card className="h-full">
           Weather
         </Card>
         <Card className="row-span-2">
           <List />
         </Card>
-        <Card>
+        <Card className="h-full">
           Pomodoro
         </Card>
         <BackgroundDotted />
