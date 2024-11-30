@@ -1,4 +1,4 @@
-import { SideBar, Header, List, Card, BackgroundDotted } from "./components";
+import { SideBar, Header, List, Card, BackgroundDotted } from "./components/";
 
 export default function HomePage() {
   return (

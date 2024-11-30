@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Quicksand } from 'next/font/google'
 
 import "./globals.css";
+import { Providers } from "./Providers";
 
 const quicksand = Quicksand({
   weight: '400',
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body
         className={`${quicksand.className} antialiased h-screen `}
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
