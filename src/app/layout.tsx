@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksand.className} antialiased`}
+        className={`${quicksand.className} antialiased h-screen `}
       >
         {children}
       </body>
