@@ -5,8 +5,8 @@ export const Task = ({
   id,
   title,
   status,
-  createdAt,
-  updatedAt,
+  // createdAt,
+  // updatedAt,
   toggleStatus,
   removeTask,
 }: TaskType & { toggleStatus: (id: string) => void; removeTask: (id: string) => void; }): JSX.Element => {

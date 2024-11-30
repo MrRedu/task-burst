@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         red: "#ff4155",
         black: "#150001",
+        snow: "#F2F6FC",
         "bg-primary": "#050505",
         "bg-secondary": "#131417",
         "color-disabled": "#8f8f8f",
