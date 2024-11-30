@@ -81,7 +81,7 @@ export const List = () => {
       {
         tasks.length > 0 && (
           <>
-            <ul className="divide-y divide-gray-200/80 overflow-y-auto">
+            <ul className="divide-y divide-gray-200/80 max-h-[600px] md:max-h-max overflow-y-auto">
               {tasks && tasks.map((task: TaskType) => (
                 <Task
                   key={task.id}

@@ -9,8 +9,9 @@ export default function HomePage() {
       <div className="col-span-2"><Header /></div>
       <div className="pl-2"><SideBar /></div>
       <div className="
-      grid grid-cols-2 grid-rows-2 gap-2 p-4 z-0
-      overflow-hidden rounded-xl relative mr-2 
+      flex flex-col overflow-y-auto
+      md:grid grid-cols-2 grid-rows-2 gap-2  md:overflow-hidden 
+      rounded-xl relative mr-2 p-4 z-0
       ">
         <Card>
           Weather
