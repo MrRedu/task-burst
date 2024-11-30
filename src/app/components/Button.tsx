@@ -1,5 +1,5 @@
 type ButtonProps = {
-  children: React.ReactNode
+  children?: React.ReactNode
   className?: string
   onClick?: () => void
   onlyIcon?: boolean
