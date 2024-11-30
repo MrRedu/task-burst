@@ -1,14 +1,15 @@
 'use client'
 
-import { useForm } from "react-hook-form";
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from "lucide-react";
 import { v4 as uuidv4 } from 'uuid';
+import { useForm } from "react-hook-form";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import NumberFlow from "@number-flow/react";
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from "lucide-react";
+
 import { useTasks } from "../stores/tasks/tasks.store";
 import { type TaskType } from "../types/Tasks.type";
-import { Task } from "./Task";
-import { Button } from "./Button";
-import NumberFlow from "@number-flow/react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import { Task, Button, ListSkeleton } from "./";
 
 export const List = () => {
   const tasks = useTasks((state) => state.tasks);
@@ -33,7 +34,7 @@ export const List = () => {
   const [parent, enableAnimations] = useAutoAnimate()
 
   return (
-    <section className="flex flex-col gap-2 w-full h-full">
+    <section className="flex flex-col gap-2 w-full h-full overflow-hidden">
       <form onSubmit={onSubmit}
         className="flex items-start  w-full mx-auto gap-2"
       >
@@ -85,26 +86,26 @@ export const List = () => {
           />
         </div>
       </div>
-      {
-        tasks.length > 0 && (
-          <>
-            <ul ref={parent} className="divide-y divide-gray-200/80 w-full max-h-[600px] md:max-h-full overflow-x-hidden overflow-y-auto ">
-              {tasks.map((task: TaskType) => (
-                <Task
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  status={task.status}
-                  createdAt={task.createdAt}
-                  updatedAt={task.updatedAt}
-                  toggleStatus={toggleStatus}
-                  removeTask={removeTask}
-                />
-              ))}
-            </ul>
-          </>
-        )
-      }
+      {tasks.length > 0 ? (
+        <>
+          <ul ref={parent} className="divide-y divide-gray-200/80 w-full max-h-[600px] md:max-h-full overflow-x-hidden overflow-y-auto ">
+            {tasks.map((task: TaskType) => (
+              <Task
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                status={task.status}
+                createdAt={task.createdAt}
+                updatedAt={task.updatedAt}
+                toggleStatus={toggleStatus}
+                removeTask={removeTask}
+              />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <ListSkeleton />
+      )}
     </section>
   )
 };
