@@ -4,4 +4,31 @@
 
 body {
   @apply bg-bg-primary;
+
 }
+
+/* Hide scrollbar */
+/* *::-webkit-scrollbar {
+  display: none;
+} */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8f8f8f;
+  border-radius: 5px;
+}
+
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #131417;
+} */

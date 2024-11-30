@@ -1,5 +1,6 @@
 // Acomodar imports
 import { TaskType } from "@/app/types/Tasks.type";
+import { toast } from "sonner";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -23,10 +24,11 @@ export const useTasks = create<TaskState>()(
       // Methods
       addTask: (task) =>
         set((state) => {
-          // if (state.tasks.some((t) => t.title === task.title)) {
-          //   return state; // -> Return error because title is already in the list
-          // }
-          return { tasks: [...state.tasks, task] };
+          if (state.tasks.some((t) => t.title === task.title)) {
+            toast.error("Task already exists");
+            return state; // -> Return error because title is already in the list
+          }
+          return { tasks: [task, ...state.tasks] };
         }),
       removeTask: (id) =>
         set((state) => ({
