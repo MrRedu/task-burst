@@ -5,7 +5,7 @@ type ButtonProps = {
   onlyIcon?: boolean
   icon?: React.ElementType
   type?: 'submit' | 'reset' | 'button'
-  isLoading?: boolean
+  // isLoading?: boolean
   variant?: 'solid' | 'bordered' | 'light' | 'ghost'
   isDisabled?: boolean
 }
@@ -16,7 +16,7 @@ export const Button = ({
   onlyIcon = false,
   icon: Icon,
   type = 'button',
-  isLoading = false,
+  // isLoading = false,
   variant = 'solid',
   onClick
 }: ButtonProps): JSX.Element => {
