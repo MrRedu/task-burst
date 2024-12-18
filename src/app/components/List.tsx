@@ -60,13 +60,13 @@ export const List = () => {
       </form >
       <div className="flex items-center justify-between">
         {errors && (
-          <p className="text-sm text-red">
+          <p className="text-sm text-red-500">
             {errors.title?.message as string}
           </p>
         )}
         <div className="flex items-center justify-start gap-2">
           <span className={`text-sm flex items-center pointer-events-none
-            ${tasks.length === 0 && 'text-color-disabled'}`}>
+            ${tasks.length === 0 && 'text-c-disabled'}`}>
             (<NumberFlow value={tasks.length} />&nbsp;tasks)
           </span>
           <Button
