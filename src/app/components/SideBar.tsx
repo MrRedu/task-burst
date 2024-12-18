@@ -12,83 +12,119 @@ import {
   Settings,
   SplitSquareVertical,
 } from "lucide-react";
-import Link from "next/link";
+import { useModal } from "@/hooks/useModal";
+import { Modal } from "./ui/Modal";
+import { NavButton } from "./NavButton";
+import { HelpModal } from "./modals/HelpModal";
 
-export function SideBar() {
+export const NAV_BUTTONS = [
+  {
+    icon: Edit3,
+    label: "Edit",
+    onClick: () => {},
+  },
+  {
+    icon: Save,
+    label: "Save",
+    href: "/save",
+  },
+  {
+    icon: Grid,
+    label: "Dashboard",
+  },
+  {
+    icon: Code2,
+    label: "Code",
+  },
+  {
+    icon: SplitSquareVertical,
+    label: "Split View",
+  },
+  {
+    icon: Settings,
+    label: "Settings",
+  },
+];
+
+interface SidebarProps {
+  className?: string;
+}
+
+export function SideBar({ className }: SidebarProps) {
+  // const { isOpen, openModal, closeModal, modalRef } = useModal();
+  const helpModal = useModal();
+
   const [isCollapsed, setIsCollapsed] = useState(true);
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed);
-  }
+  };
 
   return (
     <aside
-      className={`
-        flex h-full flex-col justify-between 
-        bg-bg-secondary p-2 transition-all duration-300
-        rounded-xl
-        ${isCollapsed ? "w-[60px]" : "w-[240px]"}
-      `}
+      className={`flex h-full ${isCollapsed ? "gap-0" : "gap-2"} ${className}`}
     >
-      <div className="flex flex-col gap-2">
-        <button
-          onClick={handleCollapse}
-          className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-zinc-800"
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          <PanelTopOpen className={`h-5 w-5 text-zinc-400 transform transition-transform duration-300 
-            ${isCollapsed ? '-rotate-90' : 'rotate-90'}`} />
-        </button>
-        <div className="h-[1px] bg-zinc-800" />
-        <NavButton icon={Edit3} label="Edit" />
-        <NavButton icon={Save} label="Save" />
-        <NavButton icon={Grid} label="Dashboard" />
-        <NavButton icon={Code2} label="Code" />
-        <NavButton icon={SplitSquareVertical} label="Split View" />
-        <NavButton icon={Settings} label="Settings" />
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="h-[1px] bg-zinc-800" />
-        <NavButton icon={HelpCircle} label="Help" />
-        <NavButton icon={Github} label="GitHub" href="https://github.com/MrRedu/task-burst" />
-      </div>
-    </aside>
-  );
-}
-
-function NavButton({
-  icon: Icon,
-  label,
-  href
-}: {
-  icon: React.ElementType;
-  label: string;
-  href?: string
-}) {
-  const classStyle = "group flex h-10 w-10 justify-center items-center gap-2 rounded-lg hover:bg-zinc-800"
-  if (href) {
-    return (
-      <Link
-        href={href}
-        className={`${classStyle}`}
-        aria-label={label}
-        target="_blank"
+      <section
+        className="flex h-full flex-col justify-between 
+        bg-c-woodsmoke p-2 rounded-xl"
       >
-        <Icon className="h-5 w-5 text-zinc-400 group-hover:text-zinc-100" />
-        {/* <span className="text-sm text-zinc-400 group-hover:text-zinc-100">
-          {label}
-        </span> */}
-      </Link>
-    )
-  }
-  return (
-    <button
-      className={`${classStyle}`}
-      aria-label={label}
-    >
-      <Icon className="h-5 w-5 text-zinc-400 group-hover:text-zinc-100" />
-      {/* <span className="text-sm text-zinc-400 group-hover:text-zinc-100">
-        {label}
-      </span> */}
-    </button>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={handleCollapse}
+            className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-zinc-800"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            <PanelTopOpen
+              className={`h-5 w-5 text-zinc-400 transform transition-transform duration-300 
+            ${isCollapsed ? "-rotate-90" : "rotate-90"}`}
+            />
+          </button>
+          <div className="h-[1px] bg-zinc-800" />
+          {NAV_BUTTONS.map((item) => (
+            <NavButton
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              onClick={item.onClick ? item.onClick : undefined}
+              href={item.href ? item.href : undefined}
+            />
+          ))}
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="h-[1px] bg-zinc-800" />
+          <NavButton
+            icon={HelpCircle}
+            label="Help"
+            onClick={helpModal.openModal}
+          />
+          <NavButton
+            icon={Github}
+            label="GitHub"
+            href="https://github.com/MrRedu/task-burst"
+          />
+        </div>
+      </section>
+      <section
+        className={`
+      bg-c-woodsmoke transition-all duration-300
+        rounded-xl
+        ${isCollapsed ? "w-[0px]" : "w-[240px] p-2"}
+        "
+      `}
+      >
+        <p>right</p>
+      </section>
+
+      {/* Help Modal */}
+      {helpModal.isOpen && (
+        <Modal
+          onClose={helpModal.closeModal}
+          modalRef={helpModal.modalRef}
+          blur
+          size="lg"
+        >
+          <HelpModal />
+        </Modal>
+      )}
+    </aside>
   );
 }
