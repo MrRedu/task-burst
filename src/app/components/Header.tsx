@@ -1,10 +1,15 @@
-import Image from "next/image"
+import Image from "next/image";
 import Link from "next/link";
 
-export const Header = () => {
-  return (
-    <header className="flex items-center justify-between w-full h-full px-4  text-white">
+interface HeaderProps {
+  className?: string;
+}
 
+export const Header = ({ className }: HeaderProps) => {
+  return (
+    <header
+      className={`flex items-center justify-between w-full h-full px-4 text-white ${className}`}
+    >
       <Link href={"/"} className="flex gap-2">
         <Image src="/isotipo.svg" alt="logo" width={16} height={16} />
         <h1 className="text-md font-black">Task Burst</h1>
@@ -13,7 +18,6 @@ export const Header = () => {
       {/* <Link href={"https://github.com/MrRedu/task-burst"} className="flex items-center gap-2">
         GitHub
       </Link> */}
-
     </header>
-  )
+  );
 };
