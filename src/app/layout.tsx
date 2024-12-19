@@ -39,8 +39,7 @@ export default function RootLayout({
         <Providers>
           <div
             className="
-            grid grid-cols-[auto_1fr] grid-rows-[3rem_1fr] gap-x-2 
-            h-[calc(100vh-8px)]
+            grid grid-cols-[auto_1fr] grid-rows-[3rem_calc(100vh-3rem-8px)] gap-x-2 
             "
           >
             <Header className="col-span-2" />

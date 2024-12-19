@@ -1,5 +1,4 @@
 import { List, Card, Clock } from "@/components/.";
-import { DailyStreak } from "./components/DailyStreak";
 
 export default function HomePage() {
   return (
@@ -13,9 +12,7 @@ export default function HomePage() {
       bg-c-woodsmoke bg-[radial-gradient(#4d4d4d,transparent_1px)] [background-size:24px_24px]
       `}
     >
-      <Card className="h-full">
-        <DailyStreak />
-      </Card>
+      <Card className="h-full">Algo</Card>
       <Card className="row-span-2">
         <List />
       </Card>
