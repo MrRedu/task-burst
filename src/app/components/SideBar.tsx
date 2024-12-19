@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Code2,
-  Edit3,
+  Trophy,
   Github,
   Grid,
   HelpCircle,
@@ -22,21 +22,36 @@ interface SidebarProps {
   className?: string;
 }
 
+type NavButton = {
+  icon: React.ElementType;
+  label: string;
+  onClick?: () => void;
+  href?: string;
+  isSelected?: boolean;
+};
+
+const StreakTab = () => {
+  return <div className="text-c-snow text-bold text-lg">StreakTab</div>;
+};
+const SecondTab = () => {
+  return <div className="text-c-snow text-bold text-lg">SecondTab</div>;
+};
+
 export function SideBar({ className }: SidebarProps) {
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
   const helpModal = useModal();
   const settingsModal = useModal();
 
-  const NAV_BUTTONS = [
+  const NAV_BUTTONS: NavButton[] = [
     {
-      icon: Edit3,
-      label: "Edit",
-      onClick: () => {},
+      icon: Trophy,
+      label: "Streak",
+      onClick: () => handleTabClick("Streak"),
     },
     {
       icon: Save,
-      label: "Save",
-      href: "/save",
+      label: "Second",
+      onClick: () => handleTabClick("Second"),
     },
     {
       icon: Grid,
@@ -61,6 +76,14 @@ export function SideBar({ className }: SidebarProps) {
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  const [selectedTab, setSelectedTab] = useState(NAV_BUTTONS[0].label);
+  const handleTabClick = (tab: string) => {
+    const isSameTab = tab === selectedTab;
+    setSelectedTab(tab);
+    if (isCollapsed || isSameTab) {
+      handleCollapse();
+    }
+  };
 
   return (
     <>
@@ -80,23 +103,24 @@ export function SideBar({ className }: SidebarProps) {
               aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               <PanelTopOpen
-                className={`h-5 w-5 text-zinc-400 transform transition-transform duration-300 
+                className={`h-5 w-5 text-c-snow transform transition-transform duration-300 
             ${isCollapsed ? "-rotate-90" : "rotate-90"}`}
               />
             </button>
-            <div className="h-[1px] bg-zinc-800" />
+            <div className="h-[2px] bg-zinc-700" />
             {NAV_BUTTONS.map((item) => (
               <NavButton
                 key={item.label}
                 icon={item.icon}
                 label={item.label}
-                onClick={item.onClick ? item.onClick : undefined}
-                href={item.href ? item.href : undefined}
+                onClick={item?.onClick ? item?.onClick : undefined}
+                href={item?.href ? item?.href : undefined}
+                isSelected={selectedTab === item.label && !isCollapsed}
               />
             ))}
           </div>
           <div className="flex flex-col gap-2">
-            <div className="h-[1px] bg-zinc-800" />
+            <div className="h-[2px] bg-zinc-700" />
             <NavButton
               icon={HelpCircle}
               label="Help"
@@ -113,11 +137,12 @@ export function SideBar({ className }: SidebarProps) {
           className={`
       bg-c-woodsmoke transition-all duration-300
         rounded-xl
-        ${isCollapsed ? "w-[0px]" : "w-[240px] p-2"}
+        ${isCollapsed ? "w-0 overflow-hidden" : "w-[240px] p-2"}
         "
       `}
         >
-          <p>right</p>
+          {selectedTab === "Streak" && <StreakTab />}
+          {selectedTab === "Second" && <SecondTab />}
         </section>
       </aside>
       {/* Configuration Modal */}
