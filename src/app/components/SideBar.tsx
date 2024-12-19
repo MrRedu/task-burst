@@ -16,7 +16,8 @@ import { useModal } from "@/hooks/useModal";
 import { Modal } from "./ui/Modal";
 import { NavButton } from "./NavButton";
 import { HelpModal } from "./modals/HelpModal";
-import { SettingsModal } from "./modals/SettingsModal";
+import { HabitsTab } from "./tabs/HabitsTab";
+import { SettingsTab } from "./tabs/SettingsTab";
 
 interface SidebarProps {
   className?: string;
@@ -30,9 +31,6 @@ type NavButton = {
   isSelected?: boolean;
 };
 
-const StreakTab = () => {
-  return <div className="text-c-snow text-bold text-lg">StreakTab</div>;
-};
 const SecondTab = () => {
   return <div className="text-c-snow text-bold text-lg">SecondTab</div>;
 };
@@ -40,13 +38,12 @@ const SecondTab = () => {
 export function SideBar({ className }: SidebarProps) {
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
   const helpModal = useModal();
-  const settingsModal = useModal();
 
   const NAV_BUTTONS: NavButton[] = [
     {
       icon: Trophy,
-      label: "Streak",
-      onClick: () => handleTabClick("Streak"),
+      label: "Habits",
+      onClick: () => handleTabClick("Habits"),
     },
     {
       icon: Save,
@@ -68,7 +65,7 @@ export function SideBar({ className }: SidebarProps) {
     {
       icon: Settings,
       label: "Settings",
-      onClick: settingsModal.openModal,
+      onClick: () => handleTabClick("Settings"),
     },
   ];
 
@@ -137,25 +134,16 @@ export function SideBar({ className }: SidebarProps) {
           className={`
       bg-c-woodsmoke transition-all duration-300
         rounded-xl
-        ${isCollapsed ? "w-0 overflow-hidden" : "w-[240px] p-2"}
+        ${isCollapsed ? "w-0 overflow-hidden" : "w-[360px]"}
         "
       `}
         >
-          {selectedTab === "Streak" && <StreakTab />}
+          {selectedTab === "Habits" && <HabitsTab />}
           {selectedTab === "Second" && <SecondTab />}
+          {selectedTab === "Settings" && <SettingsTab />}
         </section>
       </aside>
-      {/* Configuration Modal */}
-      {settingsModal.isOpen && (
-        <Modal
-          onClose={settingsModal.closeModal}
-          modalRef={settingsModal.modalRef}
-          blur
-          size="lg"
-        >
-          <SettingsModal />
-        </Modal>
-      )}
+
       {/* Help Modal */}
       {helpModal.isOpen && (
         <Modal
