@@ -1,22 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
 
-export const DailyStreak = () => {
-  const [completedDays, setCompletedDays] = useState([]);
+import { useHabits } from "../stores/habits/habits.store";
+export const DailyStreak = ({ completedDays, habitId }) => {
   const year = new Date().getFullYear();
-
-  useEffect(() => {
-    // Cargar los días completados desde localStorage o una API
-    const storedDays = JSON.parse(localStorage.getItem("completedDays")) || [];
-    setCompletedDays(storedDays);
-  }, []);
+  const completeHabitDay = useHabits((state) => state.completeHabitDay); // Obtener la función del store
 
   const markAsCompleted = (date) => {
-    if (!completedDays.includes(date)) {
-      const updatedDays = [...completedDays, date];
-      setCompletedDays(updatedDays);
-      localStorage.setItem("completedDays", JSON.stringify(updatedDays));
-    }
+    completeHabitDay(habitId, date); // Llamar a la función para completar el día
   };
 
   const renderCalendar = () => {
@@ -26,30 +16,19 @@ export const DailyStreak = () => {
       return (
         <div
           key={formattedDate}
-          onClick={() => markAsCompleted(formattedDate)}
-          style={{
-            width: "8px",
-            height: "8px",
-            margin: "1px",
-            borderRadius: "20%",
-            backgroundColor: completedDays.includes(formattedDate)
-              ? "green"
-              : "lightgray",
-            cursor: "pointer",
-          }}
+          onClick={() => markAsCompleted(formattedDate)} // Permitir marcar como completado
+          className={`relative w-[8px] h-[8px] m-[1px] rounded-[20%] bg-[lightgray] cursor-pointer ${
+            completedDays?.includes(formattedDate) && "bg-green-500"
+          }`}
         />
       );
     });
-    return (
-      <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
-        {daysInYear}
-      </div>
-    );
+
+    return <div className="flex flex-wrap w-full">{daysInYear}</div>;
   };
 
   return (
-    <div>
-      <h1>Streak Diario - {year}</h1>
+    <div className="relative overflow-auto h-[86px] w-full">
       {renderCalendar()}
     </div>
   );
