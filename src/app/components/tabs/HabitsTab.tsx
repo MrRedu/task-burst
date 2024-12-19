@@ -50,7 +50,7 @@ export const HabitsTab = () => {
             <PlusCircle />
           </button>
         </header>
-        <div className="flex flex-col gap-4 w-full h-full overflow-y-auto">
+        <div className="flex flex-col gap-4 w-full h-full overflow-auto pr-2">
           {habits &&
             habits?.map((habit) => (
               <HabitItem

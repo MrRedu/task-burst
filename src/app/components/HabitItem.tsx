@@ -1,9 +1,10 @@
 import { Check, User } from "lucide-react";
 import { DailyStreak } from "./DailyStreak";
+import { Card } from "./Card";
 
 export const HabitItem = ({ title, description, completedDays, id }) => {
   return (
-    <section className="flex flex-col gap-2 p-2 border border-c-silver rounded-lg">
+    <Card className="flex flex-col gap-2">
       <header className="flex items-center gap-2">
         <User className="w-8 h-8 p-2 bg-gray-300/20 rounded-xl" />
         <div>
@@ -15,6 +16,6 @@ export const HabitItem = ({ title, description, completedDays, id }) => {
         </button>
       </header>
       <DailyStreak completedDays={completedDays} habitId={id} />
-    </section>
+    </Card>
   );
 };
