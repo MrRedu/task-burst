@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
 
@@ -26,14 +26,8 @@ export const Clock = () => {
             prefix=":"
             format={{ minimumIntegerDigits: 2 }}
           />
-          <NumberFlow
-            value={time.getSeconds()}
-            prefix=":"
-            format={{ minimumIntegerDigits: 2 }}
-          />
         </div>
       </NumberFlowGroup>
     </>
-
-  )
+  );
 };
