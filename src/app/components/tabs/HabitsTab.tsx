@@ -38,7 +38,6 @@ export const HabitsTab = () => {
     <>
       <section
         className="text-c-snow p-4 w-full h-full
-        
       flex flex-col gap-4"
       >
         <header className="flex items-center justify-between">
