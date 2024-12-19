@@ -3,7 +3,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Toaster position="bottom-right" closeButton toastOptions={{
-        className: 'bg-snow',
+        className: 'bg-c-snow',
       }} />
       {children}
     </>
