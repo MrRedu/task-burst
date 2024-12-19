@@ -38,7 +38,9 @@ export const Modal = ({
       <div
         ref={modalRef}
         className={`
-          bg-c-space text-c-snow rounded-lg shadow-lg
+          bg-c-space text-c-snow rounded-xl
+          border-[3px] border-c-dark
+          shadow-[4px_4px_0_0_rgba(5,5,5,1)]
           max-h-[85vh] max-w-[90vw] overflow-y-auto
           px-16 py-12
           ${
