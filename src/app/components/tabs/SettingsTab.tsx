@@ -1,7 +1,13 @@
 import { Moon, Sun, SunMoon } from 'lucide-react'
 import { Card } from '../Card'
 
-const ThemeButton = ({ ariaLabel, children }) => {
+const ThemeButton = ({
+  ariaLabel,
+  children,
+}: {
+  ariaLabel: string
+  children: React.ReactNode
+}) => {
   return <button aria-label={ariaLabel}>{children}</button>
 }
 
