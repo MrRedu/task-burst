@@ -1,11 +1,17 @@
 "use client";
 
 import { useHabits } from "../stores/habits/habits.store";
-export const DailyStreak = ({ completedDays, habitId }) => {
+export const DailyStreak = ({
+  completedDays,
+  habitId,
+}: {
+  completedDays: string[];
+  habitId: string;
+}) => {
   const year = new Date().getFullYear();
   const completeHabitDay = useHabits((state) => state.completeHabitDay); // Obtener la función del store
 
-  const markAsCompleted = (date) => {
+  const markAsCompleted = (date: string) => {
     completeHabitDay(habitId, date); // Llamar a la función para completar el día
   };
 
