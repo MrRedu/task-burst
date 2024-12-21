@@ -1,11 +1,13 @@
 import { Input } from "../ui/forms/Input";
 import { Button } from "../Button";
 
-// Hacerle una interface a los formularios #TODO
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { HabitFormInputs } from "../tabs/HabitsTab";
+
 interface CreateHabitFormProps {
-  register: any;
-  errors: any;
-  onSubmit: any;
+  register: UseFormRegister<HabitFormInputs>;
+  errors: FieldErrors<HabitFormInputs>;
+  onSubmit: () => void;
 }
 
 export const CreateHabitForm = ({

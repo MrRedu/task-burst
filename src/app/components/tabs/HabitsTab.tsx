@@ -8,6 +8,11 @@ import { useHabits } from "../../stores/habits/habits.store";
 import { type HabitType } from "../../types/Habits.type";
 import { HabitItem } from "../HabitItem";
 
+export interface HabitFormInputs {
+  title: string;
+  description?: string;
+}
+
 export const HabitsTab = () => {
   const createHabitFormModal = useModal();
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
@@ -19,7 +24,7 @@ export const HabitsTab = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<HabitFormInputs>();
 
   const onSubmit = handleSubmit((data) => {
     addHabit({
