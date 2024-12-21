@@ -2,7 +2,17 @@ import { Check, User } from "lucide-react";
 import { DailyStreak } from "./DailyStreak";
 import { Card } from "./Card";
 
-export const HabitItem = ({ title, description, completedDays, id }) => {
+export const HabitItem = ({
+  title,
+  description,
+  completedDays,
+  id,
+}: {
+  title: string;
+  description: string;
+  completedDays: string[];
+  id: string;
+}) => {
   return (
     <Card className="flex flex-col gap-2">
       <header className="flex items-center gap-2">
