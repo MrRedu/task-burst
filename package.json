@@ -6,9 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --check './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@formkit/auto-animate": "0.8.2",

@@ -60,7 +60,7 @@ export const HabitsTab = () => {
               <HabitItem
                 key={habit.id}
                 title={habit.title}
-                description={habit.description}
+                description={habit?.description}
                 completedDays={habit.completedDays}
                 id={habit.id}
               />

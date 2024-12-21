@@ -9,7 +9,7 @@ export const HabitItem = ({
   id,
 }: {
   title: string
-  description: string
+  description?: string
   completedDays: string[]
   id: string
 }) => {
