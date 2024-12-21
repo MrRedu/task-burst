@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export const HelpModal = () => {
   return (
@@ -20,7 +20,7 @@ export const HelpModal = () => {
       </p>
       <h3 className="text-md font-bold">{`Contribution`}</h3>
       <p className="text-c-silver text-semibold">
-        The project is Open Source and available on{" "}
+        The project is Open Source and available on{' '}
         <Link
           href="https://github.com/MrRedu/task-burst/"
           className="underline font-bold"
@@ -30,15 +30,15 @@ export const HelpModal = () => {
         .
       </p>
       <p className="text-c-silver text-semibold">
-        If you have any feedback, suggestions, or issues, please{" "}
+        If you have any feedback, suggestions, or issues, please{' '}
         <Link
           href="https://github.com/MrRedu/task-burst/issues"
           className="underline font-bold"
         >
           open an issue
-        </Link>{" "}
+        </Link>{' '}
         on Github.
       </p>
     </div>
-  );
-};
+  )
+}

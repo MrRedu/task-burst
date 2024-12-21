@@ -1,32 +1,32 @@
-"use client";
-import { PlusCircle } from "lucide-react";
-import { useModal } from "@/hooks/useModal";
-import { CreateHabitForm } from "../forms/CreateHabitForm";
-import { Modal } from "../ui/Modal";
-import { useForm } from "react-hook-form";
-import { useHabits } from "../../stores/habits/habits.store";
-import { type HabitType } from "../../types/Habits.type";
-import { HabitItem } from "../HabitItem";
+'use client'
+import { PlusCircle } from 'lucide-react'
+import { useModal } from '@/hooks/useModal'
+import { CreateHabitForm } from '../forms/CreateHabitForm'
+import { Modal } from '../ui/Modal'
+import { useForm } from 'react-hook-form'
+import { useHabits } from '../../stores/habits/habits.store'
+import { type HabitType } from '../../types/Habits.type'
+import { HabitItem } from '../HabitItem'
 
 export interface HabitFormInputs {
-  title: string;
-  description?: string;
+  title: string
+  description?: string
 }
 
 export const HabitsTab = () => {
-  const createHabitFormModal = useModal();
+  const createHabitFormModal = useModal()
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
 
-  const habits = useHabits((state) => state.habits);
-  const addHabit = useHabits((state) => state.addHabit);
+  const habits = useHabits(state => state.habits)
+  const addHabit = useHabits(state => state.addHabit)
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<HabitFormInputs>();
+  } = useForm<HabitFormInputs>()
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(data => {
     addHabit({
       id: self.crypto.randomUUID(),
       title: data.title,
@@ -34,10 +34,10 @@ export const HabitsTab = () => {
       completedDays: [],
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as HabitType);
-    createHabitFormModal.closeModal();
-    reset();
-  });
+    } as HabitType)
+    createHabitFormModal.closeModal()
+    reset()
+  })
 
   return (
     <>
@@ -56,7 +56,7 @@ export const HabitsTab = () => {
         </header>
         <div className="flex flex-col gap-4 w-full h-full overflow-auto pr-2">
           {habits &&
-            habits?.map((habit) => (
+            habits?.map(habit => (
               <HabitItem
                 key={habit.id}
                 title={habit.title}
@@ -83,5 +83,5 @@ export const HabitsTab = () => {
         </Modal>
       )}
     </>
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import { List, Card, Clock } from "@/components/.";
+import { List, Card, Clock } from '@/components/.'
 
 export default function HomePage() {
   return (
@@ -21,5 +21,5 @@ export default function HomePage() {
         <Clock />
       </Card>
     </section>
-  );
+  )
 }

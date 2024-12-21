@@ -1,9 +1,9 @@
-import { Moon, Sun, SunMoon } from "lucide-react";
-import { Card } from "../Card";
+import { Moon, Sun, SunMoon } from 'lucide-react'
+import { Card } from '../Card'
 
 const ThemeButton = ({ ariaLabel, children }) => {
-  return <button aria-label={ariaLabel}>{children}</button>;
-};
+  return <button aria-label={ariaLabel}>{children}</button>
+}
 
 export const SettingsTab = () => {
   return (
@@ -26,5 +26,5 @@ export const SettingsTab = () => {
         </div>
       </Card>
     </section>
-  );
-};
+  )
+}

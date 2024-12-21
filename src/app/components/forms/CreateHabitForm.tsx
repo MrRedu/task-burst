@@ -1,13 +1,13 @@
-import { Input } from "../ui/forms/Input";
-import { Button } from "../Button";
+import { Input } from '../ui/forms/Input'
+import { Button } from '../Button'
 
-import { UseFormRegister, FieldErrors } from "react-hook-form";
-import { HabitFormInputs } from "../tabs/HabitsTab";
+import { UseFormRegister, FieldErrors } from 'react-hook-form'
+import { HabitFormInputs } from '../tabs/HabitsTab'
 
 interface CreateHabitFormProps {
-  register: UseFormRegister<HabitFormInputs>;
-  errors: FieldErrors<HabitFormInputs>;
-  onSubmit: () => void;
+  register: UseFormRegister<HabitFormInputs>
+  errors: FieldErrors<HabitFormInputs>
+  onSubmit: () => void
 }
 
 export const CreateHabitForm = ({
@@ -19,24 +19,24 @@ export const CreateHabitForm = ({
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input
         label="Title"
-        {...register("title", {
-          required: "Title is required",
+        {...register('title', {
+          required: 'Title is required',
           minLength: {
             value: 3,
-            message: "Title must be at least 3 characters",
+            message: 'Title must be at least 3 characters',
           },
           maxLength: {
             value: 20,
-            message: "Title must be at most 20 characters",
+            message: 'Title must be at most 20 characters',
           },
         })}
         error={errors?.title}
         spellCheck={false}
       />
-      <Input {...register("description")} error={errors?.description} />
+      <Input {...register('description')} error={errors?.description} />
       <Button type="submit" onClick={onSubmit}>
         Submit
       </Button>
     </form>
-  );
-};
+  )
+}

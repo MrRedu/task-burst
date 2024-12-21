@@ -1,38 +1,38 @@
-import { useEffect } from "react";
-import ReactDOM from "react-dom";
+import { useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
 interface ModalProps {
-  children: React.ReactNode;
-  onClose: () => void;
-  modalRef: React.RefObject<HTMLDivElement>;
-  size?: string;
-  blur?: boolean;
+  children: React.ReactNode
+  onClose: () => void
+  modalRef: React.RefObject<HTMLDivElement>
+  size?: string
+  blur?: boolean
 }
 
 export const Modal = ({
   children,
   onClose,
   modalRef,
-  size = "md",
+  size = 'md',
   blur = false,
 }: ModalProps) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
+      if (event.key === 'Escape') {
+        onClose()
       }
-    };
+    }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown)
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onClose]);
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
 
   return ReactDOM.createPortal(
     <div
       className={`fixed inset-0 z-100 flex items-center justify-center bg-c-dark bg-opacity-50 ${
-        blur ? "backdrop-blur-sm" : ""
+        blur ? 'backdrop-blur-sm' : ''
       }`}
     >
       <div
@@ -44,15 +44,15 @@ export const Modal = ({
           max-h-[85vh] max-w-[90vw] overflow-y-auto
           px-16 py-12
           ${
-            size === "sm"
-              ? "w-[320px]"
-              : size === "md"
-              ? "w-[460px]"
-              : size === "lg"
-              ? "w-[680px] lg"
-              : size === "xl"
-              ? "w-[920px]"
-              : ""
+            size === 'sm'
+              ? 'w-[320px]'
+              : size === 'md'
+                ? 'w-[460px]'
+                : size === 'lg'
+                  ? 'w-[680px] lg'
+                  : size === 'xl'
+                    ? 'w-[920px]'
+                    : ''
           }
           `}
       >
@@ -66,5 +66,5 @@ export const Modal = ({
       </div>
     </div>,
     document.body
-  );
-};
+  )
+}

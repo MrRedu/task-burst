@@ -1,9 +1,9 @@
 interface CardProps {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }
 
-export const Card = ({ children, className = "" }: CardProps) => {
+export const Card = ({ children, className = '' }: CardProps) => {
   return (
     <section
       className={`
@@ -15,5 +15,5 @@ export const Card = ({ children, className = "" }: CardProps) => {
     >
       {children}
     </section>
-  );
-};
+  )
+}

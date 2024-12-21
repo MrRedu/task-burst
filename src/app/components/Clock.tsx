@@ -1,17 +1,17 @@
-"use client";
-import { useEffect, useState } from "react";
-import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
+'use client'
+import { useEffect, useState } from 'react'
+import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
 
 export const Clock = () => {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(new Date())
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+      setTime(new Date())
+    }, 1000)
 
-    return () => clearInterval(intervalId);
-  }, []);
+    return () => clearInterval(intervalId)
+  }, [])
 
   return (
     <>
@@ -29,5 +29,5 @@ export const Clock = () => {
         </div>
       </NumberFlowGroup>
     </>
-  );
-};
+  )
+}

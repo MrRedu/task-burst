@@ -1,6 +1,6 @@
-import { Check, User } from "lucide-react";
-import { DailyStreak } from "./DailyStreak";
-import { Card } from "./Card";
+import { Check, User } from 'lucide-react'
+import { DailyStreak } from './DailyStreak'
+import { Card } from './Card'
 
 export const HabitItem = ({
   title,
@@ -8,10 +8,10 @@ export const HabitItem = ({
   completedDays,
   id,
 }: {
-  title: string;
-  description: string;
-  completedDays: string[];
-  id: string;
+  title: string
+  description: string
+  completedDays: string[]
+  id: string
 }) => {
   return (
     <Card className="flex flex-col gap-2">
@@ -27,5 +27,5 @@ export const HabitItem = ({
       </header>
       <DailyStreak completedDays={completedDays} habitId={id} />
     </Card>
-  );
-};
+  )
+}

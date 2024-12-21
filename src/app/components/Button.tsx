@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/Spinner"
+import { Spinner } from '@/components/ui/Spinner'
 
 type ButtonProps = {
   children?: React.ReactNode
@@ -21,7 +21,7 @@ export const Button = ({
   isLoading = false,
   variant = 'solid',
   onClick,
-  isDisabled = false
+  isDisabled = false,
 }: ButtonProps): JSX.Element => {
   const solidStyles = `
   bg-slate-800 border-transparent text-white shadow-sm 
@@ -52,10 +52,11 @@ export const Button = ({
       ${variant === 'ghost' && ghostStyles}
       ${variant === 'light' && lightStyles}
       ${className}
-    `}>
+    `}
+    >
       {isLoading && <Spinner />}
       {!onlyIcon && children}
       {onlyIcon && Icon && <Icon className="h-4 w-4" />}
     </button>
   )
-};
+}

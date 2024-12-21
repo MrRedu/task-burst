@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface HeaderProps {
-  className?: string;
+  className?: string
 }
 
 export const Header = ({ className }: HeaderProps) => {
@@ -10,7 +10,7 @@ export const Header = ({ className }: HeaderProps) => {
     <header
       className={`flex items-center justify-between w-full h-full px-4 text-white ${className}`}
     >
-      <Link href={"/"} className="flex gap-2">
+      <Link href={'/'} className="flex gap-2">
         <Image src="/isotipo.svg" alt="logo" width={16} height={16} />
         <h1 className="text-md font-black">Task Burst</h1>
       </Link>
@@ -19,5 +19,5 @@ export const Header = ({ className }: HeaderProps) => {
         GitHub
       </Link> */}
     </header>
-  );
-};
+  )
+}

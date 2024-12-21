@@ -1,42 +1,42 @@
-"use client";
+'use client'
 
-import { useForm } from "react-hook-form";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import NumberFlow from "@number-flow/react";
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from "lucide-react";
+import { useForm } from 'react-hook-form'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import NumberFlow from '@number-flow/react'
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from 'lucide-react'
 
-import { useTasks } from "../stores/tasks/tasks.store";
-import { type TaskType } from "../types/Tasks.type";
+import { useTasks } from '../stores/tasks/tasks.store'
+import { type TaskType } from '../types/Tasks.type'
 
-import { Task, Button, ListSkeleton } from "./";
-import { Input } from "./ui/forms/Input";
+import { Task, Button, ListSkeleton } from './'
+import { Input } from './ui/forms/Input'
 
 export const List = () => {
-  const tasks = useTasks((state) => state.tasks);
-  const addTask = useTasks((state) => state.addTask);
-  const removeTask = useTasks((state) => state.removeTask);
-  const toggleStatus = useTasks((state) => state.toggleStatus);
-  const orderAsc = useTasks((state) => state.orderAsc);
-  const orderDesc = useTasks((state) => state.orderDesc);
+  const tasks = useTasks(state => state.tasks)
+  const addTask = useTasks(state => state.addTask)
+  const removeTask = useTasks(state => state.removeTask)
+  const toggleStatus = useTasks(state => state.toggleStatus)
+  const orderAsc = useTasks(state => state.orderAsc)
+  const orderDesc = useTasks(state => state.orderDesc)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
-  const onSubmit = handleSubmit((data) => {
+  } = useForm()
+  const onSubmit = handleSubmit(data => {
     addTask({
       id: self.crypto.randomUUID(),
       title: data.title,
       status: false,
       createdAt: new Date(),
       updatedAt: new Date(),
-    } as TaskType);
-    reset();
-  });
+    } as TaskType)
+    reset()
+  })
 
-  const [parent] = useAutoAnimate();
+  const [parent] = useAutoAnimate()
 
   return (
     <section className="flex flex-col gap-2 w-full h-full">
@@ -48,13 +48,13 @@ export const List = () => {
           <Input
             type="text"
             placeholder="Add a task"
-            {...register("title", {
-              required: "This is required",
-              minLength: { value: 3, message: "Min length is 3 characters" },
+            {...register('title', {
+              required: 'This is required',
+              minLength: { value: 3, message: 'Min length is 3 characters' },
             })}
           />
         </div>
-        <Button type="submit" onClick={onSubmit} className={"px-3"}>
+        <Button type="submit" onClick={onSubmit} className={'px-3'}>
           <Plus /> Add
         </Button>
       </form>
@@ -67,7 +67,7 @@ export const List = () => {
         <div className="flex items-center justify-start gap-2">
           <span
             className={`text-sm flex items-center pointer-events-none
-            ${tasks.length === 0 && "text-c-disabled"}`}
+            ${tasks.length === 0 && 'text-c-disabled'}`}
           >
             (<NumberFlow value={tasks.length} />
             &nbsp;tasks)
@@ -112,5 +112,5 @@ export const List = () => {
         <ListSkeleton />
       )}
     </section>
-  );
-};
+  )
+}
