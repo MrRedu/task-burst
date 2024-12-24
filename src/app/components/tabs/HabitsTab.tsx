@@ -16,6 +16,17 @@ export interface HabitFormInputs {
   description?: string
 }
 
+const formatDateToActivityCalendar = (date: Date): string => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+const today = new Date()
+const oneYearAgo = new Date(today)
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
+
 export const HabitsTab = () => {
   const createHabitFormModal = useModal()
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
@@ -34,7 +45,18 @@ export const HabitsTab = () => {
       id: globalThis.crypto.randomUUID(),
       title: data.title,
       description: data?.description,
-      completedDays: [],
+      completedDays: [
+        {
+          date: formatDateToActivityCalendar(oneYearAgo),
+          count: 0,
+          level: 0,
+        },
+        {
+          date: formatDateToActivityCalendar(today),
+          count: 0,
+          level: 0,
+        },
+      ],
       createdAt: new Date(),
       updatedAt: new Date(),
     } as HabitType)
@@ -59,10 +81,10 @@ export const HabitsTab = () => {
             habits?.map(habit => (
               <HabitItem
                 key={habit.id}
+                id={habit.id}
                 title={habit.title}
                 description={habit?.description}
                 completedDays={habit.completedDays}
-                id={habit.id}
               />
             ))}
         </div>
