@@ -16,6 +16,9 @@ export interface TaskFormInputs {
 }
 
 export const List = () => {
+  // const { isOpen, openModal, closeModal, modalRef } = useModal()
+  const modalToAddTask = useModal()
+
   const tasks = useTasks(state => state.tasks)
   const addTask = useTasks(state => state.addTask)
   const removeTask = useTasks(state => state.removeTask)
@@ -39,11 +42,9 @@ export const List = () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     } as TaskType)
+    modalToAddTask.closeModal()
     reset()
   })
-
-  // const { isOpen, openModal, closeModal, modalRef } = useModal()
-  const modalToAddTask = useModal()
 
   return (
     <section className="relative flex h-full w-full flex-col gap-2">
@@ -86,23 +87,21 @@ export const List = () => {
         </div>
       </div>
       {tasks.length > 0 ? (
-        <>
-          <Reorder.Group as="ul" values={tasks} onReorder={setTasksOrder}>
-            {tasks.map(task => (
-              <Reorder.Item key={task.id} value={task}>
-                <Task
-                  id={task.id}
-                  title={task.title}
-                  status={task.status}
-                  createdAt={task.createdAt}
-                  updatedAt={task.updatedAt}
-                  toggleStatus={toggleStatus}
-                  removeTask={removeTask}
-                />
-              </Reorder.Item>
-            ))}
-          </Reorder.Group>
-        </>
+        <Reorder.Group as="ul" values={tasks} onReorder={setTasksOrder}>
+          {tasks.map(task => (
+            <Reorder.Item key={task.id} value={task}>
+              <Task
+                id={task.id}
+                title={task.title}
+                status={task.status}
+                createdAt={task.createdAt}
+                updatedAt={task.updatedAt}
+                toggleStatus={toggleStatus}
+                removeTask={removeTask}
+              />
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
       ) : (
         <ListSkeleton />
       )}

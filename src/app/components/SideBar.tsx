@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import {
   Code2,
   Github,
@@ -128,13 +129,21 @@ export function SideBar({ className }: SidebarProps) {
             />
           </div>
         </section>
-        <section
-          className={`rounded-xl bg-c-woodsmoke transition-all duration-300 ${isCollapsed ? 'w-0 overflow-hidden' : 'w-[360px]'} "`}
+        {/* Here */}
+        <motion.div
+          className={`overflow-hidden rounded-xl bg-c-woodsmoke`}
+          initial={isCollapsed ? 'collapsed' : 'expanded'}
+          animate={isCollapsed ? 'collapsed' : 'expanded'}
+          variants={{
+            expanded: { width: '360px', scale: 1, opacity: 1 },
+            collapsed: { width: '0', scale: 0.95, opacity: 0.4 },
+          }}
+          transition={{ duration: 0.3 }}
         >
           {selectedTab === 'Habits' && <HabitsTab />}
           {selectedTab === 'Second' && <SecondTab />}
           {selectedTab === 'Settings' && <SettingsTab />}
-        </section>
+        </motion.div>
       </aside>
 
       {/* Help Modal */}

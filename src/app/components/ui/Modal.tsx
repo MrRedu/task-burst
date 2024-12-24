@@ -45,13 +45,13 @@ export const Modal = ({
           duration: 0.3,
         }}
         ref={modalRef}
-        className={`max-h-[85vh] max-w-[90vw] overflow-y-auto rounded-xl border-[3px] border-c-dark bg-c-space px-16 py-12 text-c-snow shadow-[4px_4px_0_0_rgba(5,5,5,1)] ${
+        className={`max-h-[85vh] max-w-[90vw] overflow-y-auto rounded-xl border-[3px] border-c-dark bg-c-space px-8 py-6 text-c-snow shadow-[4px_4px_0_0_rgba(5,5,5,1)] md:px-12 md:py-8 lg:px-16 lg:py-12 ${
           size === 'sm'
             ? 'w-[320px]'
             : size === 'md'
               ? 'w-[460px]'
               : size === 'lg'
-                ? 'lg w-[680px]'
+                ? 'w-[680px]'
                 : size === 'xl'
                   ? 'w-[920px]'
                   : ''
