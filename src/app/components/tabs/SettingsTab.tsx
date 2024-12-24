@@ -1,6 +1,7 @@
-import { Moon, Sun, SunMoon } from 'lucide-react'
+import { MoonStar, Sun, Monitor } from 'lucide-react'
 
 import { Card } from '../Card'
+import { Switch } from '../ui/Switch'
 
 const ThemeButton = ({
   ariaLabel,
@@ -9,7 +10,11 @@ const ThemeButton = ({
   ariaLabel: string
   children: React.ReactNode
 }) => {
-  return <button aria-label={ariaLabel}>{children}</button>
+  return (
+    <button aria-label={ariaLabel} className="rounded-full bg-slate-500/20 p-6">
+      {children}
+    </button>
+  )
 }
 
 export const SettingsTab = () => {
@@ -18,18 +23,26 @@ export const SettingsTab = () => {
       <header className="flex items-center text-center">
         <h3 className="text-md w-full text-center font-bold">Settings</h3>
       </header>
-      <Card>
-        <h4>Theme</h4>
-        <div className="flex w-full justify-between gap-2">
+      <Card className="flex flex-col gap-6">
+        <h4 className="text-md">Theme</h4>
+        <div className="flex w-full justify-center gap-4">
           <ThemeButton ariaLabel="Light Theme">
-            <Sun size={64} />
-          </ThemeButton>
-          <ThemeButton ariaLabel="Dark Theme">
-            <Moon size={64} fill="red" />
+            <Sun size={32} />
           </ThemeButton>
           <ThemeButton ariaLabel="System Theme">
-            <SunMoon size={64} />
+            <Monitor size={32} />
           </ThemeButton>
+          <ThemeButton ariaLabel="Dark Theme">
+            <MoonStar size={32} />
+          </ThemeButton>
+        </div>
+      </Card>
+      <Card className="flex flex-col gap-6">
+        <h4 className="text-md">Hours</h4>
+        <div className="flex w-full items-center justify-center gap-4">
+          12h
+          <Switch />
+          24h
         </div>
       </Card>
     </section>
