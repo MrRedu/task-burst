@@ -1,4 +1,4 @@
-import { MoonStar, Sun, Monitor } from 'lucide-react'
+import { Monitor, MoonStar, Sun } from 'lucide-react'
 
 import { Card } from '../Card'
 import { Switch } from '../ui/Switch'

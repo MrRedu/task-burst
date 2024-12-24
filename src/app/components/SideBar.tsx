@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import {
   Code2,
   Github,
@@ -12,7 +13,6 @@ import {
   Trophy,
 } from 'lucide-react'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 
 import { useModal } from '@/hooks/useModal'
 
