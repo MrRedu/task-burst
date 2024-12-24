@@ -8,7 +8,7 @@ export const Clock = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(new Date())
-    }, 1000)
+    }, 60000)
 
     return () => clearInterval(intervalId)
   }, [])
