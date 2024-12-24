@@ -3,31 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "type-check": "tsc -b"
   },
   "dependencies": {
     "@formkit/auto-animate": "0.8.2",
+    "@formkit/tempo": "0.1.2",
     "@number-flow/react": "0.4.1",
+    "eslint-config-next": "^15.1.2",
     "lucide-react": "0.462.0",
-    "next": "14.2.15",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-hook-form": "7.53.2",
+    "next": "15.1.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-hook-form": "^7.54.2",
     "sonner": "1.7.0",
-    "uuid": "11.0.3",
     "zustand": "5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.15",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-playwright": "^2.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "globals": "^15.14.0",
     "postcss": "^8",
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2"
   }
 }

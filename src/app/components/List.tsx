@@ -1,32 +1,36 @@
 'use client'
 
-import { v4 as uuidv4 } from 'uuid';
-import { useForm } from "react-hook-form";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import NumberFlow from "@number-flow/react";
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from "lucide-react";
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import NumberFlow from '@number-flow/react'
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from 'lucide-react'
+import { useForm } from 'react-hook-form'
 
-import { useTasks } from "../stores/tasks/tasks.store";
-import { type TaskType } from "../types/Tasks.type";
-
-import { Task, Button, ListSkeleton } from "./";
+import { useTasks } from '../stores/tasks/tasks.store'
+import { type TaskType } from '../types/Tasks.type'
+import { Button, ListSkeleton, Task } from './'
+import { Input } from './ui/forms/Input'
 
 export const List = () => {
-  const tasks = useTasks((state) => state.tasks);
-  const addTask = useTasks((state) => state.addTask);
-  const removeTask = useTasks((state) => state.removeTask);
-  const toggleStatus = useTasks((state) => state.toggleStatus);
-  const orderAsc = useTasks((state) => state.orderAsc);
-  const orderDesc = useTasks((state) => state.orderDesc);
+  const tasks = useTasks(state => state.tasks)
+  const addTask = useTasks(state => state.addTask)
+  const removeTask = useTasks(state => state.removeTask)
+  const toggleStatus = useTasks(state => state.toggleStatus)
+  const orderAsc = useTasks(state => state.orderAsc)
+  const orderDesc = useTasks(state => state.orderDesc)
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const onSubmit = handleSubmit((data) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm()
+  const onSubmit = handleSubmit(data => {
     addTask({
-      id: uuidv4(),
+      id: globalThis.crypto.randomUUID(),
       title: data.title,
       status: false,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     } as TaskType)
     reset()
   })
@@ -34,40 +38,37 @@ export const List = () => {
   const [parent] = useAutoAnimate()
 
   return (
-    <section className="flex flex-col gap-2 w-full h-full overflow-hidden">
-      <form onSubmit={onSubmit}
-        className="flex items-start  w-full mx-auto gap-2"
+    <section className="flex h-full w-full flex-col gap-2">
+      <form
+        onSubmit={onSubmit}
+        className="mx-auto flex w-full items-start gap-2"
       >
-        <div className="flex flex-col w-full">
-          <input
+        <div className="flex w-full flex-col">
+          <Input
             type="text"
             placeholder="Add a task"
-            {...register('title',
-              {
-                required: 'This is required',
-                minLength: { value: 3, message: 'Min length is 3 characters' }
-              }
-            )}
-            className={`
-              bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-              ${errors.title?.message ? 'border border-red text-red placeholder-700 text-sm rounded-lg focus:ring-red' : ''}
-              `}
+            {...register('title', {
+              required: 'This is required',
+              minLength: { value: 3, message: 'Min length is 3 characters' },
+            })}
           />
         </div>
-        <Button type="submit" onClick={onSubmit} className={'px-3'} >
+        <Button type="submit" onClick={onSubmit} className={'px-3'}>
           <Plus /> Add
         </Button>
-      </form >
+      </form>
       <div className="flex items-center justify-between">
         {errors && (
-          <p className="text-sm text-red">
+          <p className="text-sm text-red-500">
             {errors.title?.message as string}
           </p>
         )}
         <div className="flex items-center justify-start gap-2">
-          <span className={`text-sm flex items-center pointer-events-none
-            ${tasks.length === 0 && 'text-color-disabled'}`}>
-            (<NumberFlow value={tasks.length} />&nbsp;tasks)
+          <span
+            className={`pointer-events-none flex items-center text-sm ${tasks.length === 0 && 'text-c-disabled'}`}
+          >
+            (<NumberFlow value={tasks.length} />
+            &nbsp;tasks)
           </span>
           <Button
             onClick={orderAsc}
@@ -82,13 +83,15 @@ export const List = () => {
             variant="ghost"
             onlyIcon
             icon={ArrowDownWideNarrow}
-
           />
         </div>
       </div>
       {tasks.length > 0 ? (
         <>
-          <ul ref={parent} className="divide-y divide-gray-200/80 w-full max-h-[600px] md:max-h-full overflow-x-hidden overflow-y-auto ">
+          <ul
+            ref={parent}
+            className="max-h-[600px] w-full divide-y divide-gray-200/80 overflow-y-auto overflow-x-hidden md:max-h-full"
+          >
             {tasks.map((task: TaskType) => (
               <Task
                 key={task.id}
@@ -108,4 +111,4 @@ export const List = () => {
       )}
     </section>
   )
-};
+}

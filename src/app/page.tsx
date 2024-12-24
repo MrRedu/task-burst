@@ -1,29 +1,18 @@
-import { SideBar, Header, List, Card, BackgroundDotted } from "./components/";
+import { Card, Clock, List } from '@/components/.'
 
 export default function HomePage() {
   return (
-    <div className="
-    grid grid-cols-[auto_1fr] grid-rows-[3rem_1fr] gap-x-2 
-    h-[calc(100vh-8px)]
-    ">
-      <div className="col-span-2"><Header /></div>
-      <div className="pl-2"><SideBar /></div>
-      <div className="
-      flex flex-col overflow-y-auto
-      md:grid grid-cols-2 grid-rows-2 gap-2  md:overflow-hidden 
-      rounded-xl relative mr-2 p-4 z-0
-      ">
-        <Card className="h-full">
-          Weather
-        </Card>
-        <Card className="row-span-2">
-          <List />
-        </Card>
-        <Card className="h-full">
-          Pomodoro
-        </Card>
-        <BackgroundDotted />
-      </div>
-    </div>
-  );
+    <section
+      className={`// Background Dotted relative z-0 mr-2 flex grid-cols-2 grid-rows-2 flex-col gap-6 overflow-y-auto rounded-xl bg-c-woodsmoke bg-[radial-gradient(#4d4d4d,transparent_1px)] p-4 [background-size:24px_24px] md:grid md:overflow-hidden`}
+    >
+      <Card className="h-full">Algo</Card>
+      <Card className="row-span-2">
+        <List />
+      </Card>
+      <Card className="h-full">
+        {/* Pomodoro */}
+        <Clock />
+      </Card>
+    </section>
+  )
 }

@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-bg-primary;
-
+  @apply bg-c-dark;
 }
 
 /* Hide scrollbar */
@@ -23,10 +22,9 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #8f8f8f;
+  background: #404040;
   border-radius: 5px;
 }
-
 
 /* Handle on hover */
 /* ::-webkit-scrollbar-thumb:hover {

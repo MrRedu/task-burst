@@ -1,6 +1,7 @@
-import { Trash } from "lucide-react";
-import { TaskType } from "../types/Tasks.type";
-import { Button } from "./Button";
+import { Trash } from 'lucide-react'
+
+import { TaskType } from '../types/Tasks.type'
+import { Button } from './Button'
 
 export const Task = ({
   id,
@@ -10,10 +11,13 @@ export const Task = ({
   // updatedAt,
   toggleStatus,
   removeTask,
-}: TaskType & { toggleStatus: (id: string) => void; removeTask: (id: string) => void; }): JSX.Element => {
+}: TaskType & {
+  toggleStatus: (id: string) => void
+  removeTask: (id: string) => void
+}) => {
   return (
-    <li className="flex justify-between items-center py-2">
-      <div className="flex items-center w-full">
+    <li className="flex items-center justify-between py-2">
+      <div className="flex w-full items-center">
         <input
           id={title}
           type="checkbox"
@@ -22,9 +26,7 @@ export const Task = ({
           className=""
         />
         <label htmlFor={title} className="ml-3 block w-full">
-          <span className={`${status ? "line-through" : ""}`}>
-            {title}
-          </span>
+          <span className={`${status ? 'line-through' : ''}`}>{title}</span>
         </label>
       </div>
       <Button
@@ -32,8 +34,7 @@ export const Task = ({
         onlyIcon
         icon={Trash}
         variant="light"
-      >
-      </Button>
+      ></Button>
     </li>
-  );
-};
+  )
+}
