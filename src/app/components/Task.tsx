@@ -1,7 +1,8 @@
-import { Trash } from 'lucide-react'
+import { Grip, Trash } from 'lucide-react'
 
 import { TaskType } from '../types/Tasks.type'
 import { Button } from './Button'
+import { Checkbox } from './ui/forms/Checkbox'
 
 export const Task = ({
   id,
@@ -16,25 +17,27 @@ export const Task = ({
   removeTask: (id: string) => void
 }) => {
   return (
-    <li className="flex items-center justify-between py-2">
+    <div className="flex items-center justify-between py-2">
       <div className="flex w-full items-center">
-        <input
-          id={title}
-          type="checkbox"
-          checked={status}
-          onChange={() => toggleStatus(id)}
-          className=""
-        />
+        <Checkbox checked={status} onChange={() => toggleStatus(id)} />
         <label htmlFor={title} className="ml-3 block w-full">
           <span className={`${status ? 'line-through' : ''}`}>{title}</span>
         </label>
       </div>
-      <Button
-        onClick={() => removeTask(id)}
-        onlyIcon
-        icon={Trash}
-        variant="light"
-      ></Button>
-    </li>
+      <div className="flex items-center">
+        <Button
+          onClick={() => removeTask(id)}
+          onlyIcon
+          icon={Trash}
+          variant="light"
+        />
+        <Button
+          onClick={() => console.log('click')}
+          onlyIcon
+          icon={Grip}
+          variant="light"
+        />
+      </div>
+    </div>
   )
 }

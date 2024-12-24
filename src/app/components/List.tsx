@@ -1,14 +1,19 @@
 'use client'
 
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import NumberFlow from '@number-flow/react'
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from 'lucide-react'
+import { ArrowDownWideNarrow, ArrowUpNarrowWide } from 'lucide-react'
+import { Reorder } from 'motion/react'
 import { useForm } from 'react-hook-form'
 
+import { useModal } from '../hooks/useModal'
 import { useTasks } from '../stores/tasks/tasks.store'
 import { type TaskType } from '../types/Tasks.type'
 import { Button, ListSkeleton, Task } from './'
-import { Input } from './ui/forms/Input'
+import NewNote from './ui/NewNote'
+
+export interface TaskFormInputs {
+  title: string
+}
 
 export const List = () => {
   const tasks = useTasks(state => state.tasks)
@@ -17,13 +22,15 @@ export const List = () => {
   const toggleStatus = useTasks(state => state.toggleStatus)
   const orderAsc = useTasks(state => state.orderAsc)
   const orderDesc = useTasks(state => state.orderDesc)
+  const setTasksOrder = useTasks(state => state.setTasksOrder)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm()
+    watch,
+  } = useForm<TaskFormInputs>()
   const onSubmit = handleSubmit(data => {
     addTask({
       id: globalThis.crypto.randomUUID(),
@@ -35,28 +42,20 @@ export const List = () => {
     reset()
   })
 
-  const [parent] = useAutoAnimate()
+  // const { isOpen, openModal, closeModal, modalRef } = useModal()
+  const modalToAddTask = useModal()
 
   return (
-    <section className="flex h-full w-full flex-col gap-2">
-      <form
+    <section className="relative flex h-full w-full flex-col gap-2">
+      <NewNote
+        isOpen={modalToAddTask.isOpen}
+        openModal={modalToAddTask.openModal}
+        closeModal={modalToAddTask.closeModal}
+        modalRef={modalToAddTask.modalRef}
         onSubmit={onSubmit}
-        className="mx-auto flex w-full items-start gap-2"
-      >
-        <div className="flex w-full flex-col">
-          <Input
-            type="text"
-            placeholder="Add a task"
-            {...register('title', {
-              required: 'This is required',
-              minLength: { value: 3, message: 'Min length is 3 characters' },
-            })}
-          />
-        </div>
-        <Button type="submit" onClick={onSubmit} className={'px-3'}>
-          <Plus /> Add
-        </Button>
-      </form>
+        register={register}
+        watch={watch}
+      />
       <div className="flex items-center justify-between">
         {errors && (
           <p className="text-sm text-red-500">
@@ -88,23 +87,21 @@ export const List = () => {
       </div>
       {tasks.length > 0 ? (
         <>
-          <ul
-            ref={parent}
-            className="max-h-[600px] w-full divide-y divide-gray-200/80 overflow-y-auto overflow-x-hidden md:max-h-full"
-          >
-            {tasks.map((task: TaskType) => (
-              <Task
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                status={task.status}
-                createdAt={task.createdAt}
-                updatedAt={task.updatedAt}
-                toggleStatus={toggleStatus}
-                removeTask={removeTask}
-              />
+          <Reorder.Group as="ul" values={tasks} onReorder={setTasksOrder}>
+            {tasks.map(task => (
+              <Reorder.Item key={task.id} value={task}>
+                <Task
+                  id={task.id}
+                  title={task.title}
+                  status={task.status}
+                  createdAt={task.createdAt}
+                  updatedAt={task.updatedAt}
+                  toggleStatus={toggleStatus}
+                  removeTask={removeTask}
+                />
+              </Reorder.Item>
             ))}
-          </ul>
+          </Reorder.Group>
         </>
       ) : (
         <ListSkeleton />

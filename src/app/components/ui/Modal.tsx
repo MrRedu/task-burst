@@ -1,3 +1,4 @@
+import * as motion from 'motion/react-client'
 import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -35,7 +36,14 @@ export const Modal = ({
         blur ? 'backdrop-blur-sm' : ''
       }`}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0.75, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          type: 'spring',
+          bounce: 0.05,
+          duration: 0.3,
+        }}
         ref={modalRef}
         className={`max-h-[85vh] max-w-[90vw] overflow-y-auto rounded-xl border-[3px] border-c-dark bg-c-space px-16 py-12 text-c-snow shadow-[4px_4px_0_0_rgba(5,5,5,1)] ${
           size === 'sm'
@@ -56,7 +64,7 @@ export const Modal = ({
           &times;
         </button>
         {children}
-      </div>
+      </motion.div>
     </div>,
     document.body
   )
