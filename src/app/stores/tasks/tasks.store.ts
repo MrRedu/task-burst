@@ -14,6 +14,8 @@ interface TaskState {
 
   orderAsc: () => void
   orderDesc: () => void
+
+  setTasksOrder: (newOrder: TaskType[]) => void
 }
 
 export const useTasks = create<TaskState>()(
@@ -59,6 +61,7 @@ export const useTasks = create<TaskState>()(
           })
           return { tasks: sortedTasks }
         }),
+      setTasksOrder: newOrder => set({ tasks: newOrder }), // Nueva función para establecer el nuevo orden
     }),
 
     {
