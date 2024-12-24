@@ -1,16 +1,9 @@
-import { List, Card, Clock } from '@/components/.'
+import { Card, Clock, List } from '@/components/.'
 
 export default function HomePage() {
   return (
     <section
-      className={`
-      flex flex-col overflow-y-auto
-      md:grid grid-cols-2 grid-rows-2 gap-6  md:overflow-hidden 
-      rounded-xl relative mr-2 p-4 z-0
-
-      // Background Dotted
-      bg-c-woodsmoke bg-[radial-gradient(#4d4d4d,transparent_1px)] [background-size:24px_24px]
-      `}
+      className={`// Background Dotted relative z-0 mr-2 flex grid-cols-2 grid-rows-2 flex-col gap-6 overflow-y-auto rounded-xl bg-c-woodsmoke bg-[radial-gradient(#4d4d4d,transparent_1px)] p-4 [background-size:24px_24px] md:grid md:overflow-hidden`}
     >
       <Card className="h-full">Algo</Card>
       <Card className="row-span-2">

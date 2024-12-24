@@ -1,14 +1,13 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import NumberFlow from '@number-flow/react'
 import { ArrowDownWideNarrow, ArrowUpNarrowWide, Plus } from 'lucide-react'
+import { useForm } from 'react-hook-form'
 
 import { useTasks } from '../stores/tasks/tasks.store'
 import { type TaskType } from '../types/Tasks.type'
-
-import { Task, Button, ListSkeleton } from './'
+import { Button, ListSkeleton, Task } from './'
 import { Input } from './ui/forms/Input'
 
 export const List = () => {
@@ -27,7 +26,7 @@ export const List = () => {
   } = useForm()
   const onSubmit = handleSubmit(data => {
     addTask({
-      id: self.crypto.randomUUID(),
+      id: globalThis.crypto.randomUUID(),
       title: data.title,
       status: false,
       createdAt: new Date(),
@@ -39,12 +38,12 @@ export const List = () => {
   const [parent] = useAutoAnimate()
 
   return (
-    <section className="flex flex-col gap-2 w-full h-full">
+    <section className="flex h-full w-full flex-col gap-2">
       <form
         onSubmit={onSubmit}
-        className="flex items-start  w-full mx-auto gap-2"
+        className="mx-auto flex w-full items-start gap-2"
       >
-        <div className="flex flex-col w-full">
+        <div className="flex w-full flex-col">
           <Input
             type="text"
             placeholder="Add a task"
@@ -66,8 +65,7 @@ export const List = () => {
         )}
         <div className="flex items-center justify-start gap-2">
           <span
-            className={`text-sm flex items-center pointer-events-none
-            ${tasks.length === 0 && 'text-c-disabled'}`}
+            className={`pointer-events-none flex items-center text-sm ${tasks.length === 0 && 'text-c-disabled'}`}
           >
             (<NumberFlow value={tasks.length} />
             &nbsp;tasks)
@@ -92,7 +90,7 @@ export const List = () => {
         <>
           <ul
             ref={parent}
-            className="divide-y divide-gray-200/80 w-full max-h-[600px] md:max-h-full overflow-x-hidden overflow-y-auto "
+            className="max-h-[600px] w-full divide-y divide-gray-200/80 overflow-y-auto overflow-x-hidden md:max-h-full"
           >
             {tasks.map((task: TaskType) => (
               <Task

@@ -1,9 +1,10 @@
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
+
 import { useClickOutside } from './useClickOutside'
 
 export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const modalRef = useRef(null)
+  const modalRef = useRef<HTMLDivElement | null>(null)
 
   const openModal = () => setIsOpen(true)
   const closeModal = () => setIsOpen(false)

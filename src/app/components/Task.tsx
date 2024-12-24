@@ -1,4 +1,5 @@
 import { Trash } from 'lucide-react'
+
 import { TaskType } from '../types/Tasks.type'
 import { Button } from './Button'
 
@@ -13,10 +14,10 @@ export const Task = ({
 }: TaskType & {
   toggleStatus: (id: string) => void
   removeTask: (id: string) => void
-}): JSX.Element => {
+}) => {
   return (
-    <li className="flex justify-between items-center py-2">
-      <div className="flex items-center w-full">
+    <li className="flex items-center justify-between py-2">
+      <div className="flex w-full items-center">
         <input
           id={title}
           type="checkbox"

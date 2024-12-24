@@ -6,12 +6,7 @@ interface CardProps {
 export const Card = ({ children, className = '' }: CardProps) => {
   return (
     <section
-      className={`
-    bg-c-space
-    border-[3px] border-c-dark
-    shadow-[4px_4px_0_0_rgba(5,5,5,1)]
-    text-c-snow
-    rounded-xl p-4 ${className}`}
+      className={`rounded-xl border-[3px] border-c-dark bg-c-space p-4 text-c-snow shadow-[4px_4px_0_0_rgba(5,5,5,1)] ${className}`}
     >
       {children}
     </section>

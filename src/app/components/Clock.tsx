@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useState } from 'react'
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
+import { useEffect, useState } from 'react'
 
 export const Clock = () => {
   const [time, setTime] = useState(new Date())

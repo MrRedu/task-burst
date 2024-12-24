@@ -22,7 +22,7 @@ export const Button = ({
   variant = 'solid',
   onClick,
   isDisabled = false,
-}: ButtonProps): JSX.Element => {
+}: ButtonProps) => {
   const solidStyles = `
   bg-slate-800 border-transparent text-white shadow-sm 
   hover:shadow-lg hover:bg-slate-700
@@ -44,15 +44,7 @@ export const Button = ({
       type={type}
       onClick={onClick}
       disabled={isDisabled}
-      className={`
-      flex items-center justify-center gap-2 text-sm 
-      rounded-md p-2.5 border text-center transition-all
-      ${isDisabled && 'shadow-none pointer-events-none opacity-50'}
-      ${variant === 'solid' && solidStyles}
-      ${variant === 'ghost' && ghostStyles}
-      ${variant === 'light' && lightStyles}
-      ${className}
-    `}
+      className={`flex items-center justify-center gap-2 rounded-md border p-2.5 text-center text-sm transition-all ${isDisabled && 'pointer-events-none opacity-50 shadow-none'} ${variant === 'solid' && solidStyles} ${variant === 'ghost' && ghostStyles} ${variant === 'light' && lightStyles} ${className} `}
     >
       {isLoading && <Spinner />}
       {!onlyIcon && children}

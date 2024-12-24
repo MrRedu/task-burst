@@ -1,4 +1,5 @@
 import { Moon, Sun, SunMoon } from 'lucide-react'
+
 import { Card } from '../Card'
 
 const ThemeButton = ({
@@ -13,13 +14,13 @@ const ThemeButton = ({
 
 export const SettingsTab = () => {
   return (
-    <section className="text-c-snow p-4 w-full h-full flex flex-col gap-4">
+    <section className="flex h-full w-full flex-col gap-4 p-4 text-c-snow">
       <header className="flex items-center text-center">
-        <h3 className="text-md font-bold text-center w-full">Settings</h3>
+        <h3 className="text-md w-full text-center font-bold">Settings</h3>
       </header>
       <Card>
         <h4>Theme</h4>
-        <div className="flex gap-2 w-full justify-between">
+        <div className="flex w-full justify-between gap-2">
           <ThemeButton ariaLabel="Light Theme">
             <Sun size={64} />
           </ThemeButton>

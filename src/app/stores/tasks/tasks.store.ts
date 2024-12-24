@@ -1,8 +1,9 @@
 // Acomodar imports
-import { TaskType } from '@/app/types/Tasks.type'
 import { toast } from 'sonner'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+
+import { TaskType } from '@/app/types/Tasks.type'
 
 interface TaskState {
   tasks: TaskType[]

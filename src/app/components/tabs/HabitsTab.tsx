@@ -1,12 +1,15 @@
 'use client'
+
 import { PlusCircle } from 'lucide-react'
-import { useModal } from '@/hooks/useModal'
-import { CreateHabitForm } from '../forms/CreateHabitForm'
-import { Modal } from '../ui/Modal'
 import { useForm } from 'react-hook-form'
+
+import { useModal } from '@/hooks/useModal'
+
 import { useHabits } from '../../stores/habits/habits.store'
 import { type HabitType } from '../../types/Habits.type'
+import { CreateHabitForm } from '../forms/CreateHabitForm'
 import { HabitItem } from '../HabitItem'
+import { Modal } from '../ui/Modal'
 
 export interface HabitFormInputs {
   title: string
@@ -28,7 +31,7 @@ export const HabitsTab = () => {
 
   const onSubmit = handleSubmit(data => {
     addHabit({
-      id: self.crypto.randomUUID(),
+      id: globalThis.crypto.randomUUID(),
       title: data.title,
       description: data?.description,
       completedDays: [],
@@ -41,10 +44,7 @@ export const HabitsTab = () => {
 
   return (
     <>
-      <section
-        className="text-c-snow p-4 w-full h-full
-      flex flex-col gap-4"
-      >
+      <section className="flex h-full w-full flex-col gap-4 p-4 text-c-snow">
         <header className="flex items-center justify-between">
           <h3 className="text-md font-bold">Habits</h3>
           <button
@@ -54,7 +54,7 @@ export const HabitsTab = () => {
             <PlusCircle />
           </button>
         </header>
-        <div className="flex flex-col gap-4 w-full h-full overflow-auto pr-2">
+        <div className="flex h-full w-full flex-col gap-4 overflow-auto pr-2">
           {habits &&
             habits?.map(habit => (
               <HabitItem

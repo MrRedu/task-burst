@@ -1,9 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Code2,
-  Trophy,
   Github,
   Grid,
   HelpCircle,
@@ -11,13 +9,17 @@ import {
   Save,
   Settings,
   SplitSquareVertical,
+  Trophy,
 } from 'lucide-react'
+import { useState } from 'react'
+
 import { useModal } from '@/hooks/useModal'
-import { Modal } from './ui/Modal'
-import { NavButton } from './NavButton'
+
 import { HelpModal } from './modals/HelpModal'
+import { NavButton } from './NavButton'
 import { HabitsTab } from './tabs/HabitsTab'
 import { SettingsTab } from './tabs/SettingsTab'
+import { Modal } from './ui/Modal'
 
 interface SidebarProps {
   className?: string
@@ -32,7 +34,7 @@ type NavButton = {
 }
 
 const SecondTab = () => {
-  return <div className="text-c-snow text-bold text-lg">SecondTab</div>
+  return <div className="text-bold text-lg text-c-snow">SecondTab</div>
 }
 
 export function SideBar({ className }: SidebarProps) {
@@ -89,10 +91,7 @@ export function SideBar({ className }: SidebarProps) {
           isCollapsed ? 'gap-0' : 'gap-2'
         } ${className}`}
       >
-        <section
-          className="flex h-full flex-col justify-between 
-        bg-c-woodsmoke p-2 rounded-xl"
-        >
+        <section className="flex h-full flex-col justify-between rounded-xl bg-c-woodsmoke p-2">
           <div className="flex flex-col gap-2">
             <button
               onClick={handleCollapse}
@@ -100,8 +99,7 @@ export function SideBar({ className }: SidebarProps) {
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               <PanelTopOpen
-                className={`h-5 w-5 text-c-snow transform transition-transform duration-300 
-            ${isCollapsed ? '-rotate-90' : 'rotate-90'}`}
+                className={`h-5 w-5 transform text-c-snow transition-transform duration-300 ${isCollapsed ? '-rotate-90' : 'rotate-90'}`}
               />
             </button>
             <div className="h-[2px] bg-zinc-700" />
@@ -110,8 +108,8 @@ export function SideBar({ className }: SidebarProps) {
                 key={item.label}
                 icon={item.icon}
                 label={item.label}
-                onClick={item?.onClick ? item?.onClick : undefined}
-                href={item?.href ? item?.href : undefined}
+                onClick={item?.onClick && item?.onClick}
+                href={item?.href && item?.href}
                 isSelected={selectedTab === item.label && !isCollapsed}
               />
             ))}
@@ -131,12 +129,7 @@ export function SideBar({ className }: SidebarProps) {
           </div>
         </section>
         <section
-          className={`
-      bg-c-woodsmoke transition-all duration-300
-        rounded-xl
-        ${isCollapsed ? 'w-0 overflow-hidden' : 'w-[360px]'}
-        "
-      `}
+          className={`rounded-xl bg-c-woodsmoke transition-all duration-300 ${isCollapsed ? 'w-0 overflow-hidden' : 'w-[360px]'} "`}
         >
           {selectedTab === 'Habits' && <HabitsTab />}
           {selectedTab === 'Second' && <SecondTab />}

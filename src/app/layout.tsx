@@ -1,9 +1,11 @@
+import './globals.css'
+
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 
-import './globals.css'
-import { Providers } from './Providers'
 import { Header, SideBar } from '@/components/.'
+
+import { Providers } from './Providers'
 
 const quicksand = Quicksand({
   weight: '400',
@@ -35,13 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} antialiased h-screen `}>
+      <body className={`${quicksand.className} h-screen antialiased`}>
         <Providers>
-          <div
-            className="
-            grid grid-cols-[auto_1fr] grid-rows-[3rem_calc(100vh-3rem-8px)] gap-x-2 
-            "
-          >
+          <div className="grid grid-cols-[auto_1fr] grid-rows-[3rem_calc(100vh-3rem-8px)] gap-x-2">
             <Header className="col-span-2" />
             <SideBar className="pl-2" />
             {children}

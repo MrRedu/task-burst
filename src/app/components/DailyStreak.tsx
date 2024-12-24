@@ -23,18 +23,18 @@ export const DailyStreak = ({
         <div
           key={formattedDate}
           onClick={() => markAsCompleted(formattedDate)} // Permitir marcar como completado
-          className={`relative w-[8px] h-[8px] m-[1px] rounded-[20%] bg-[lightgray] cursor-pointer ${
+          className={`relative m-[1px] h-[8px] w-[8px] cursor-pointer rounded-[20%] bg-[lightgray] ${
             completedDays?.includes(formattedDate) && 'bg-green-500'
           }`}
         />
       )
     })
 
-    return <div className="flex flex-wrap w-full">{daysInYear}</div>
+    return <div className="flex w-full flex-wrap">{daysInYear}</div>
   }
 
   return (
-    <div className="relative overflow-auto h-[86px] w-full">
+    <div className="relative h-[86px] w-full overflow-auto">
       {renderCalendar()}
     </div>
   )

@@ -1,20 +1,18 @@
-import { Input } from '../ui/forms/Input'
+// import { FieldError, UseFormRegister } from 'react-hook-form'
+
 import { Button } from '../Button'
-
-import { UseFormRegister, FieldErrors } from 'react-hook-form'
 import { HabitFormInputs } from '../tabs/HabitsTab'
+import { Input } from '../ui/forms/Input'
 
-interface CreateHabitFormProps {
-  register: UseFormRegister<HabitFormInputs>
-  errors: FieldErrors<HabitFormInputs>
+interface Props {
+  // register: UseFormRegister<HabitFormInputs>
+  // errors: Record<keyof HabitFormInputs, FieldError | undefined>
+  register: any
+  errors: any
   onSubmit: () => void
 }
 
-export const CreateHabitForm = ({
-  register,
-  errors,
-  onSubmit,
-}: CreateHabitFormProps) => {
+export const CreateHabitForm = ({ register, errors, onSubmit }: Props) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input
