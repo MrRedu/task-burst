@@ -1,12 +1,7 @@
-// import { FieldError, UseFormRegister } from 'react-hook-form'
-
-import { Button } from '../Button'
-import { HabitFormInputs } from '../tabs/HabitsTab'
+import { Button } from '@/components/ui/Button'
 import { Input } from '../ui/forms/Input'
 
 interface Props {
-  // register: UseFormRegister<HabitFormInputs>
-  // errors: Record<keyof HabitFormInputs, FieldError | undefined>
   register: any
   errors: any
   onSubmit: () => void

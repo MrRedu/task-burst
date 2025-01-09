@@ -2,7 +2,7 @@ interface CheckboxProps {
   checked: boolean
   onChange: () => void
 }
-export const Checkbox = ({ checked, onChange }: CheckboxProps) => {
+export const CheckboxOld = ({ checked, onChange }: CheckboxProps) => {
   return (
     <div className="inline-flex items-center">
       <label className="relative flex cursor-pointer items-center">

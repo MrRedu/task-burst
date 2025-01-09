@@ -1,8 +1,36 @@
 import { Grip, Trash } from 'lucide-react'
 
 import { TaskType } from '../types/Tasks.type'
-import { Button } from './Button'
-import { Checkbox } from './ui/forms/Checkbox'
+import { Button } from '@/components/ui/Button'
+import { Checkbox } from '@/components/ui/Checkbox'
+import { AnimatePresence, motion } from 'motion/react'
+
+const variants = {
+  initial: {
+    width: 0,
+    height: 2,
+    x: -100,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  animate: {
+    width: '100%',
+    height: 2,
+    x: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  exit: {
+    width: 0,
+    height: 0,
+    x: -100,
+    transition: {
+      duration: 0.5,
+    },
+  },
+}
 
 export const Task = ({
   id,
@@ -17,27 +45,34 @@ export const Task = ({
   removeTask: (id: string) => void
 }) => {
   return (
-    <div className="flex items-center justify-between py-2">
-      <div className="flex w-full items-center">
-        <Checkbox checked={status} onChange={() => toggleStatus(id)} />
-        <label htmlFor={title} className="ml-3 block w-full">
-          <span className={`${status ? 'line-through' : ''}`}>{title}</span>
-        </label>
+    <motion.div className="flex items-center rounded-lg">
+      <Checkbox isChecked={status} setIsChecked={() => toggleStatus(id)} />
+      <div className="flex w-full items-center justify-between gap-4 overflow-hidden pl-4">
+        <div className="relative">
+          <span className="cursor-pointer" onClick={() => toggleStatus(id)}>
+            {title}
+          </span>
+          <AnimatePresence>
+            {status && (
+              <motion.span
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="pointer-events-none absolute bottom-0 left-0 top-0 my-auto w-full rounded-full bg-white"
+              />
+            )}
+          </AnimatePresence>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button onClick={() => removeTask(id)} variant="ghost">
+            <Trash size={18} />
+          </Button>
+          <Button onClick={() => console.log('click')} variant="ghost">
+            <Grip size={18} />
+          </Button>
+        </div>
       </div>
-      <div className="flex items-center">
-        <Button
-          onClick={() => removeTask(id)}
-          onlyIcon
-          icon={Trash}
-          variant="light"
-        />
-        <Button
-          onClick={() => console.log('click')}
-          onlyIcon
-          icon={Grip}
-          variant="light"
-        />
-      </div>
-    </div>
+    </motion.div>
   )
 }

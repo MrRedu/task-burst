@@ -2,32 +2,52 @@
 import { ArrowLeftIcon } from 'lucide-react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { useId } from 'react'
-// import { UseFormRegister, UseFormWatch } from 'react-hook-form'
+import { Button } from '@/components/ui/Button'
+import { useForm } from 'react-hook-form'
 
-// import { TaskFormInputs } from '../List'
+import { type TaskType } from '@/app/types/Tasks.type'
+import { useTasks } from '@/stores/tasks/tasks.store'
+
+interface TaskFormInputs {
+  title: string
+  description?: string
+}
 
 interface NewNoteProps {
   isOpen: boolean
   openModal: () => void
   closeModal: () => void
   modalRef: React.RefObject<HTMLDivElement | null>
-  onSubmit: () => void
-  // register: UseFormRegister<TaskFormInputs>
-  // watch: UseFormWatch<TaskFormInputs>
-  register: any
-  watch: any
 }
 
-export default function NewNote({
+export const NewNote = ({
   isOpen,
   openModal,
   closeModal,
   modalRef,
-  onSubmit,
-  register,
-  watch,
-}: NewNoteProps) {
+}: NewNoteProps) => {
   const uniqueId = useId()
+  const addTask = useTasks(state => state.addTask)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<TaskFormInputs>()
+  const onSubmit = handleSubmit(data => {
+    addTask({
+      id: globalThis.crypto.randomUUID(),
+      title: data.title,
+      description: data.description,
+      status: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as TaskType)
+    closeModal()
+    reset()
+  })
 
   return (
     <MotionConfig
@@ -41,9 +61,9 @@ export default function NewNote({
         <motion.button
           key="button"
           layoutId={`popover-${uniqueId}`}
-          className="flex h-9 items-center border border-zinc-950/10 bg-white px-3 text-zinc-950 dark:border-zinc-50/10 dark:bg-zinc-700 dark:text-zinc-50"
+          className="flex items-center justify-center gap-2 rounded-md border-transparent bg-c-woodsmoke p-2.5 px-5 text-center text-sm text-c-snow hover:bg-c-woodsmoke/80"
           style={{
-            borderRadius: 8,
+            borderRadius: 6,
           }}
           onClick={openModal}
         >
@@ -60,25 +80,17 @@ export default function NewNote({
             <motion.div
               ref={modalRef}
               layoutId={`popover-${uniqueId}`}
-              className="absolute top-0 z-50 h-[200px] w-full overflow-hidden border border-zinc-950/10 bg-white outline-none dark:bg-zinc-700"
+              className="absolute left-0 top-0 z-50 h-auto w-full overflow-hidden border border-zinc-950/10 bg-c-woodsmoke outline-none"
               style={{
-                borderRadius: 12,
+                borderRadius: 6,
               }}
             >
-              <form className="flex h-full flex-col" onSubmit={onSubmit}>
-                <motion.span
-                  layoutId={`popover-label-${uniqueId}`}
-                  aria-hidden="true"
-                  style={{
-                    opacity: watch('title')?.length > 0 ? 0 : 1,
-                  }}
-                  className="absolute left-4 top-3 select-none text-sm text-zinc-500 dark:text-zinc-400"
-                >
-                  Add Note
-                </motion.span>
-                <textarea
-                  className="h-full w-full resize-none rounded-md bg-transparent px-4 py-3 text-sm outline-none"
+              <form className="flex h-full flex-col px-4" onSubmit={onSubmit}>
+                <input
+                  type="text"
                   autoFocus
+                  className="bg-transparent py-3 text-sm outline-none"
+                  placeholder="Title"
                   {...register('title', {
                     required: 'This is required',
                     minLength: {
@@ -87,26 +99,44 @@ export default function NewNote({
                     },
                   })}
                 />
-                <div key="close" className="flex justify-between px-4 py-3">
-                  <button
-                    type="button"
-                    className="flex items-center"
-                    onClick={closeModal}
+                {errors?.title && (
+                  <motion.span
+                    layoutId={`popover-error-${uniqueId}`}
+                    className="text-xs font-semibold text-red-500"
+                  >
+                    {errors?.title?.message}
+                  </motion.span>
+                )}
+                <textarea
+                  className="w-full resize-none bg-transparent py-3 text-sm outline-none"
+                  placeholder="Description"
+                  {...register('description', {
+                    minLength: {
+                      value: 3,
+                      message: 'Min length is 3 characters',
+                    },
+                  })}
+                />
+
+                <div key="close" className="flex justify-between py-3">
+                  <Button
                     aria-label="Close popover"
+                    variant="ghost"
+                    onClick={closeModal}
                   >
                     <ArrowLeftIcon
                       size={16}
                       className="text-zinc-900 dark:text-zinc-100"
                     />
-                  </button>
-                  <button
-                    className="relative ml-1 flex h-8 shrink-0 scale-100 select-none appearance-none items-center justify-center rounded-lg border border-zinc-950/10 bg-transparent px-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-800 focus-visible:ring-2 active:scale-[0.98] dark:border-zinc-50/10 dark:text-zinc-50 dark:hover:bg-zinc-800"
+                  </Button>
+                  <Button
                     type="submit"
-                    aria-label="Submit note"
+                    variant="ghost"
+                    aria-label="Create task"
                     onClick={onSubmit}
                   >
-                    Submit Note
-                  </button>
+                    Create task
+                  </Button>
                 </div>
               </form>
             </motion.div>
