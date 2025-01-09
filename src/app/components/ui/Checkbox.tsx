@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react'
 import { motion } from 'framer-motion'
+import React, { Dispatch, SetStateAction } from 'react'
 
 interface CheckboxProps {
   isChecked: boolean
