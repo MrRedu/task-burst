@@ -3,10 +3,11 @@
 import NumberFlow from '@number-flow/react'
 import { Reorder } from 'motion/react'
 
-import { useModal } from '../hooks/useModal'
-import { useTasks } from '../stores/tasks/tasks.store'
-import { ListSkeleton, Task } from './'
-import { NewNote } from './ui/NewNote'
+import { CreateTaskForm } from '@/components/forms/CreateTaskForm'
+import { Task } from '@/components/Task'
+import { ListSkeleton } from '@/components/ui/skeletons/ListSkeleton'
+import { useModal } from '@/hooks/useModal'
+import { useTasks } from '@/stores/tasks/tasks.store'
 
 export const List = () => {
   // const { isOpen, openModal, closeModal, modalRef } = useModal()
@@ -22,7 +23,7 @@ export const List = () => {
   return (
     <section className="relative flex h-full w-full flex-col gap-2">
       <div className="flex items-center justify-between">
-        <NewNote
+        <CreateTaskForm
           isOpen={modalToAddTask.isOpen}
           openModal={modalToAddTask.openModal}
           closeModal={modalToAddTask.closeModal}

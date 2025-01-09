@@ -2,9 +2,8 @@ import { Grip, Trash } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { Button } from '@/components/ui/Button'
-import { Checkbox } from '@/components/ui/Checkbox'
-
-import { TaskType } from '../types/Tasks.type'
+import { Checkbox } from '@/components/ui/forms/Checkbox'
+import { TaskType } from '@/types/Tasks.type'
 
 const variants = {
   initial: {

@@ -3,13 +3,12 @@
 import { PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
+import { CreateHabitForm } from '@/components/forms/CreateHabitForm'
+import { HabitItem } from '@/components/HabitItem'
+import { Modal } from '@/components/ui/Modal'
 import { useModal } from '@/hooks/useModal'
-
-import { useHabits } from '../../stores/habits/habits.store'
-import { type HabitType } from '../../types/Habits.type'
-import { CreateHabitForm } from '../forms/CreateHabitForm'
-import { HabitItem } from '../HabitItem'
-import { Modal } from '../ui/Modal'
+import { useHabits } from '@/stores/habits/habits.store'
+import { type HabitType } from '@/types/Habits.type'
 
 export interface HabitFormInputs {
   title: string

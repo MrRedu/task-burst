@@ -13,19 +13,19 @@ interface TaskFormInputs {
   description?: string
 }
 
-interface NewNoteProps {
+interface CreateTaskForm {
   isOpen: boolean
   openModal: () => void
   closeModal: () => void
   modalRef: React.RefObject<HTMLDivElement | null>
 }
 
-export const NewNote = ({
+export const CreateTaskForm = ({
   isOpen,
   openModal,
   closeModal,
   modalRef,
-}: NewNoteProps) => {
+}: CreateTaskForm) => {
   const uniqueId = useId()
   const addTask = useTasks(state => state.addTask)
 

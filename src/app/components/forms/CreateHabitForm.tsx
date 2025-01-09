@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/Button'
-
-import { Input } from '../ui/forms/Input'
+import { Input } from '@/components/ui/forms/Input'
 
 interface Props {
   register: any

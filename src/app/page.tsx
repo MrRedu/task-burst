@@ -1,4 +1,6 @@
-import { Card, Clock, List } from '@/components/.'
+import { Card } from '@/components/Card'
+import { Clock } from '@/components/Clock'
+import { List } from '@/components/List'
 
 export default function HomePage() {
   return (

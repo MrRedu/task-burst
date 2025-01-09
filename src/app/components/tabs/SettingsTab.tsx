@@ -1,7 +1,7 @@
 import { Monitor, MoonStar, Sun } from 'lucide-react'
 
-import { Card } from '../Card'
-import { Switch } from '../ui/Switch'
+import { Card } from '@/components/Card'
+import { Switch } from '@/components/ui/Switch'
 
 const ThemeButton = ({
   ariaLabel,
