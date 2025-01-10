@@ -183,7 +183,7 @@ export const CreateTaskForm = ({
                   </div>
                 </div>
 
-                <div key="close" className="flex justify-between py-3">
+                <div key="close" className="flex justify-between">
                   <Button
                     aria-label="Close popover"
                     variant="ghost"
