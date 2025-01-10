@@ -24,6 +24,8 @@ export const HelpModal = () => {
         <Link
           href="https://github.com/MrRedu/task-burst/"
           className="font-bold underline"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           GitHub
         </Link>
@@ -34,6 +36,8 @@ export const HelpModal = () => {
         <Link
           href="https://github.com/MrRedu/task-burst/issues"
           className="font-bold underline"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           open an issue
         </Link>{' '}

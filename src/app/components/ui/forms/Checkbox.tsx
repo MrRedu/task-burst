@@ -48,7 +48,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <motion.div
-      className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2"
+      className="flex h-6 w-6 min-w-6 cursor-pointer items-center justify-center rounded-md border-2"
       variants={checkboxVariants}
       animate={isChecked ? 'checked' : 'unchecked'}
       onClick={() => setIsChecked(!isChecked)}
