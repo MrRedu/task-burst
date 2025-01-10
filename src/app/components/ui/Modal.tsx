@@ -1,4 +1,4 @@
-import * as motion from 'motion/react-client'
+import { motion } from 'motion/react'
 import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -32,7 +32,7 @@ export const Modal = ({
 
   return ReactDOM.createPortal(
     <div
-      className={`z-100 fixed inset-0 flex items-center justify-center bg-c-dark bg-opacity-50 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-c-dark/50 ${
         blur ? 'backdrop-blur-sm' : ''
       }`}
     >

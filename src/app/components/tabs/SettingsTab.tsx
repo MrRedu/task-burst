@@ -19,7 +19,7 @@ const ThemeButton = ({
 
 export const SettingsTab = () => {
   return (
-    <section className="flex h-full w-full flex-col gap-4 overflow-y-auto p-4 text-c-snow">
+    <section className="flex h-full w-full min-w-[360px] flex-col gap-4 overflow-y-auto p-4 text-c-snow">
       <header className="flex items-center text-center">
         <h3 className="text-md w-full text-center font-bold">Settings</h3>
       </header>
@@ -39,9 +39,6 @@ export const SettingsTab = () => {
       <Card>
         <p>Horas previas para marcar una tarea con alerta</p>
         <p>{`<Select/>`} con horas</p>
-      </Card>
-      <Card>
-        <p>Que las cards no se achiquen cuando se cierre el tab</p>
       </Card>
       <Card className="flex flex-col gap-6">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">

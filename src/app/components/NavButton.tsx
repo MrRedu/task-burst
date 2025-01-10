@@ -35,7 +35,12 @@ export const NavButton = ({
     )
   }
   return (
-    <button className={`${linkStyles}`} onClick={onClick} aria-label={label}>
+    <button
+      type="button"
+      className={`${linkStyles}`}
+      onClick={onClick}
+      aria-label={label}
+    >
       <Icon className={`${iconStyles}`} />
     </button>
   )

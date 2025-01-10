@@ -8,7 +8,7 @@ interface HeaderProps {
 export const Header = ({ className }: HeaderProps) => {
   return (
     <header
-      className={`flex h-full w-full items-center justify-between px-4 text-white ${className}`}
+      className={`flex h-full w-full items-center justify-between px-2 text-white ${className}`}
     >
       <Link href={'/'} className="flex gap-2">
         <Image src="/isotipo.svg" alt="logo" width={16} height={16} />
