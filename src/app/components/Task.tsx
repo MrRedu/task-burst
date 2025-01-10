@@ -1,4 +1,4 @@
-import { Grip, Trash } from 'lucide-react'
+import { Grip, Trash, Eye } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { Button } from '@/components/ui/Button'
@@ -36,20 +36,26 @@ export const Task = ({
   id,
   title,
   status,
+  description,
   // createdAt,
   // updatedAt,
   toggleStatus,
   removeTask,
+  openModal,
 }: TaskType & {
   toggleStatus: (id: string) => void
   removeTask: (id: string) => void
+  openModal: (id: string) => void
 }) => {
   return (
-    <motion.div className="flex items-center rounded-lg">
+    <motion.div className="flex w-full items-center justify-between gap-4 rounded-lg">
       <Checkbox isChecked={status} setIsChecked={() => toggleStatus(id)} />
-      <div className="flex w-full items-center justify-between gap-4 overflow-hidden pl-4">
+      <div className="flex w-full items-center justify-between gap-4 overflow-hidden">
         <div className="relative">
-          <span className="cursor-pointer" onClick={() => toggleStatus(id)}>
+          <span
+            className="cursor-pointer truncate"
+            onClick={() => toggleStatus(id)}
+          >
             {title}
           </span>
           <AnimatePresence>
@@ -64,14 +70,21 @@ export const Task = ({
             )}
           </AnimatePresence>
         </div>
-        <div className="flex items-center gap-2">
-          <Button onClick={() => removeTask(id)} variant="ghost">
-            <Trash size={18} />
-          </Button>
-          <Button onClick={() => console.log('click')} variant="ghost">
-            <Grip size={18} />
-          </Button>
-        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <Button onClick={() => openModal(id)} variant="ghost" className="p-1">
+          <Eye className="text-c-silver hover:text-c-snow" size={18} />
+        </Button>
+        <Button onClick={() => removeTask(id)} variant="ghost" className="p-1">
+          <Trash className="text-c-silver hover:text-red-500" size={18} />
+        </Button>
+        <Button
+          onClick={() => console.log('click')}
+          variant="ghost"
+          className="cursor-grab p-1"
+        >
+          <Grip className="text-c-silver hover:text-c-snow" size={18} />
+        </Button>
       </div>
     </motion.div>
   )

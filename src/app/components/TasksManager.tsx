@@ -1,0 +1,95 @@
+'use client'
+
+import NumberFlow from '@number-flow/react'
+import { Reorder } from 'motion/react'
+
+import { CreateTaskForm } from '@/components/forms/CreateTaskForm'
+import { Task } from '@/components/Task'
+import { ListSkeleton } from '@/components/ui/skeletons/ListSkeleton'
+import { useModal } from '@/hooks/useModal'
+import { useTasks } from '@/stores/tasks/tasks.store'
+import { Modal } from './ui/Modal'
+import { useState } from 'react'
+import { TaskType } from '../types/Tasks.type'
+import { EditTaskForm } from './forms/EditTaskForm'
+
+export const TasksManager = () => {
+  // const { isOpen, openModal, closeModal, modalRef } = useModal()
+  const modalToAddTask = useModal()
+  const modalToEditTask = useModal()
+
+  const tasks = useTasks(state => state.tasks)
+  const removeTask = useTasks(state => state.removeTask)
+  const toggleStatus = useTasks(state => state.toggleStatus)
+  const setTasksOrder = useTasks(state => state.setTasksOrder)
+
+  const [taskSelected, setTaskSelected] = useState<TaskType | null>(null)
+  const handleOpenModal = (idTask: string) => {
+    setTaskSelected(tasks.find(task => task.id === idTask) as TaskType)
+    modalToEditTask.openModal()
+  }
+
+  return (
+    <>
+      <section className="relative flex h-full w-full flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex w-full items-center justify-between">
+            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
+              Tasks manager
+            </h2>
+            <CreateTaskForm
+              isOpen={modalToAddTask.isOpen}
+              openModal={modalToAddTask.openModal}
+              closeModal={modalToAddTask.closeModal}
+              modalRef={modalToAddTask.modalRef}
+            />
+          </div>
+          <span className={`pointer-events-none ml-auto text-sm text-c-silver`}>
+            (<NumberFlow value={tasks.length} />
+            &nbsp;{tasks.length === 1 ? 'task' : 'tasks'})
+          </span>
+        </div>
+        {tasks.length > 0 ? (
+          <Reorder.Group
+            as="ul"
+            values={tasks}
+            onReorder={setTasksOrder}
+            className="flex h-full flex-col gap-3 overflow-y-auto p-3"
+          >
+            {tasks.map(task => (
+              <Reorder.Item key={task.id} value={task}>
+                <Task
+                  id={task.id}
+                  title={task.title}
+                  description={task.description}
+                  startDateTime={task.startDateTime}
+                  endDateTime={task.endDateTime}
+                  status={task.status}
+                  createdAt={task.createdAt}
+                  updatedAt={task.updatedAt}
+                  toggleStatus={toggleStatus}
+                  removeTask={removeTask}
+                  openModal={handleOpenModal}
+                />
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
+        ) : (
+          <ListSkeleton />
+        )}
+      </section>
+
+      {/* Modal to see task details/edit it */}
+      {modalToEditTask.isOpen && (
+        <Modal
+          onClose={modalToEditTask.closeModal}
+          modalRef={modalToEditTask.modalRef}
+          blur
+          size="lg"
+        >
+          <EditTaskForm task={taskSelected!} />
+        </Modal>
+      )}
+    </>
+  )
+}

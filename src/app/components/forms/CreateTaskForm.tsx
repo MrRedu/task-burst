@@ -1,7 +1,7 @@
 'use client'
 import { ArrowLeftIcon } from 'lucide-react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { type TaskType } from '@/app/types/Tasks.type'
@@ -11,6 +11,8 @@ import { useTasks } from '@/stores/tasks/tasks.store'
 interface TaskFormInputs {
   title: string
   description?: string
+  startDateTime: string
+  endDateTime: string
 }
 
 interface CreateTaskForm {
@@ -34,7 +36,7 @@ export const CreateTaskForm = ({
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
+    setValue,
   } = useForm<TaskFormInputs>()
   const onSubmit = handleSubmit(data => {
     addTask({
@@ -42,12 +44,27 @@ export const CreateTaskForm = ({
       title: data.title,
       description: data.description,
       status: false,
+      startDateTime: new Date(data.startDateTime),
+      endDateTime: new Date(data.endDateTime),
       createdAt: new Date(),
       updatedAt: new Date(),
     } as TaskType)
     closeModal()
     reset()
   })
+
+  // Set default values for startDateTime and endDateTime
+  useEffect(() => {
+    const now = new Date()
+    const formattedNow = now.toISOString().slice(0, 16) // Formato a YYYY-MM-DDTHH:MM
+    setValue('startDateTime', formattedNow)
+
+    // Calcular la fecha de fin (un día más)
+    const endDate = new Date(now)
+    endDate.setDate(now.getDate() + 1) // Sumar un día
+    const formattedEndDate = endDate.toISOString().slice(0, 16) // Formato a YYYY-MM-DDTHH:MM
+    setValue('endDateTime', formattedEndDate)
+  }, [setValue, openModal])
 
   return (
     <MotionConfig
@@ -71,7 +88,7 @@ export const CreateTaskForm = ({
             layoutId={`popover-label-${uniqueId}`}
             className="text-sm"
           >
-            Add Note
+            Create new task
           </motion.span>
         </motion.button>
 
@@ -85,38 +102,86 @@ export const CreateTaskForm = ({
                 borderRadius: 6,
               }}
             >
-              <form className="flex h-full flex-col px-4" onSubmit={onSubmit}>
-                <input
-                  type="text"
-                  autoFocus
-                  className="bg-transparent py-3 text-sm outline-none"
-                  placeholder="Title"
-                  {...register('title', {
-                    required: 'This is required',
-                    minLength: {
-                      value: 3,
-                      message: 'Min length is 3 characters',
-                    },
-                  })}
-                />
-                {errors?.title && (
-                  <motion.span
-                    layoutId={`popover-error-${uniqueId}`}
-                    className="text-xs font-semibold text-red-500"
-                  >
-                    {errors?.title?.message}
-                  </motion.span>
-                )}
-                <textarea
-                  className="w-full resize-none bg-transparent py-3 text-sm outline-none"
-                  placeholder="Description"
-                  {...register('description', {
-                    minLength: {
-                      value: 3,
-                      message: 'Min length is 3 characters',
-                    },
-                  })}
-                />
+              <form
+                className="flex h-full flex-col gap-2 p-4"
+                onSubmit={onSubmit}
+              >
+                <div className="flex flex-col">
+                  <label htmlFor="title">
+                    <span className="text-sm font-bold">Title</span>
+                    <span className="text-red-500">{` * `}</span>
+                  </label>
+                  <input
+                    id="title"
+                    type="text"
+                    autoFocus
+                    className="bg-transparent py-3 pl-1 text-sm outline-none"
+                    placeholder="Create article about flex-box"
+                    {...register('title', {
+                      required: 'Title is required',
+                      minLength: {
+                        value: 3,
+                        message: 'Title must be at least 3 characters',
+                      },
+                    })}
+                  />
+                  {errors?.title && (
+                    <span className="text-xs font-semibold text-red-500">
+                      {errors?.title?.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="description">
+                    <span className="text-sm font-bold">Description</span>
+                    {/* <span className="text-red-500">{` * `}</span> */}
+                  </label>
+                  <textarea
+                    id="description"
+                    className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
+                    placeholder="Article about flex-box with Tailwind CSS"
+                    {...register('description', {
+                      minLength: {
+                        value: 3,
+                        message: 'Description must be at least 3 characters',
+                      },
+                    })}
+                  />
+                  {errors?.description && (
+                    <span className="text-xs font-semibold text-red-500">
+                      {errors?.description?.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col gap-2 md:flex-row">
+                  <div>
+                    <label htmlFor="startDateTime">
+                      <span className="text-sm font-bold">Start date</span>
+                    </label>
+                    <input
+                      id="startDateTime"
+                      type="datetime-local"
+                      placeholder="Start date"
+                      className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
+                      {...register('startDateTime', {
+                        required: 'Start date is required',
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="endDateTime">
+                      <span className="text-sm font-bold">End date</span>
+                    </label>
+                    <input
+                      id="endDateTime"
+                      type="datetime-local"
+                      className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
+                      {...register('endDateTime', {
+                        required: 'End date is required',
+                      })}
+                    />
+                  </div>
+                </div>
 
                 <div key="close" className="flex justify-between py-3">
                   <Button
