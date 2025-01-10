@@ -32,7 +32,7 @@ export const Modal = ({
 
   return ReactDOM.createPortal(
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-c-dark/50 ${
+      className={`fixed inset-0 z-[750] flex items-center justify-center bg-c-dark/50 ${
         blur ? 'backdrop-blur-sm' : ''
       }`}
     >

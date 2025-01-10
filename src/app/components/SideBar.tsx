@@ -3,13 +3,10 @@
 import { motion } from 'framer-motion'
 import {
   ClockAlert,
-  Code2,
-  Grid,
   HelpCircle,
   ListTodo,
   PanelTopOpen,
   Settings,
-  SplitSquareVertical,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -21,6 +18,8 @@ import { HabitsTab } from './tabs/HabitsTab'
 import { SettingsTab } from './tabs/SettingsTab'
 import { TimeZonesTab } from './tabs/TimeZonesTab'
 import { Modal } from './ui/Modal'
+import { useWindowSize } from '../hooks/useWindowSize'
+import { Drawer } from './ui/Drawer'
 
 interface SidebarProps {
   className?: string
@@ -37,8 +36,9 @@ type NavButton = {
 export function SideBar({ className }: SidebarProps) {
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
   const helpModal = useModal()
+  const { width } = useWindowSize()
 
-  const NAV_BUTTONS: NavButton[] = [
+  const NAV_BUTTONS = [
     {
       icon: ListTodo,
       label: 'Habits',
@@ -49,28 +49,27 @@ export function SideBar({ className }: SidebarProps) {
       label: 'Second',
       onClick: () => handleTabClick('TimeZones'),
     },
-    {
-      icon: Grid,
-      label: 'Dashboard',
-    },
-    {
-      icon: Code2,
-      label: 'Code',
-    },
-    {
-      icon: SplitSquareVertical,
-      label: 'Split View',
-    },
   ]
 
   const [isCollapsed, setIsCollapsed] = useState(true)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed)
+  }
+  const handleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen)
   }
   const [selectedTab, setSelectedTab] = useState(NAV_BUTTONS[0].label)
   const handleTabClick = (tab: string) => {
     const isSameTab = tab === selectedTab
     setSelectedTab(tab)
+
+    if (width < 1024) {
+      handleDrawer()
+      return
+    }
+
     if (isCollapsed || isSameTab) {
       handleCollapse()
     }
@@ -79,35 +78,34 @@ export function SideBar({ className }: SidebarProps) {
   return (
     <>
       <aside
-        className={`flex h-full ${
-          isCollapsed ? 'gap-0' : 'gap-2'
-        } ${className}`}
+        className={`flex h-[56px] lg:h-full ${isCollapsed ? 'gap-0' : 'gap-2'} ${className}`}
       >
-        <section className="flex h-full flex-col justify-between rounded-xl bg-c-woodsmoke p-2">
-          <div className="flex flex-col gap-2">
+        <section className="flex h-fit w-full justify-between rounded-xl bg-c-woodsmoke p-2 lg:h-full lg:w-fit lg:flex-col">
+          <div className="flex w-fit gap-2 lg:flex-col">
             <button
-              onClick={handleCollapse}
+              type="button"
+              onClick={() => handleTabClick(selectedTab)}
               className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-zinc-800"
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               <PanelTopOpen
-                className={`h-5 w-5 transform text-c-snow transition-transform duration-300 ${isCollapsed ? '-rotate-90' : 'rotate-90'}`}
+                className={`h-5 w-5 transform text-c-snow transition-transform duration-300 ${isCollapsed ? 'rotate-180 lg:-rotate-90' : 'lg:rotate-90'} `}
               />
             </button>
-            <div className="h-[2px] bg-zinc-700" />
+            <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
             {NAV_BUTTONS.map(item => (
               <NavButton
                 key={item.label}
                 icon={item.icon}
                 label={item.label}
                 onClick={item?.onClick && item?.onClick}
-                href={item?.href && item?.href}
+                // href={item?.href && item?.href}
                 isSelected={selectedTab === item.label && !isCollapsed}
               />
             ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="h-[2px] bg-zinc-700" />
+          <div className="flex w-fit gap-2 lg:flex-col">
+            <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
             <NavButton
               icon={HelpCircle}
               label="Help"
@@ -120,21 +118,22 @@ export function SideBar({ className }: SidebarProps) {
             />
           </div>
         </section>
-        {/* Here */}
-        <motion.div
-          className={`overflow-hidden rounded-xl bg-c-woodsmoke`}
-          initial={isCollapsed ? 'collapsed' : 'expanded'}
-          animate={isCollapsed ? 'collapsed' : 'expanded'}
-          variants={{
-            expanded: { width: '360px', scale: 1, opacity: 1 },
-            collapsed: { width: '0', scale: 0.95, opacity: 0.4 },
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {selectedTab === 'Habits' && <HabitsTab />}
-          {selectedTab === 'TimeZones' && <TimeZonesTab />}
-          {selectedTab === 'Settings' && <SettingsTab />}
-        </motion.div>
+        {width > 1024 && (
+          <motion.div
+            className={`overflow-hidden rounded-xl bg-c-woodsmoke`}
+            initial={isCollapsed ? 'collapsed' : 'expanded'}
+            animate={isCollapsed ? 'collapsed' : 'expanded'}
+            variants={{
+              expanded: { width: '360px', scale: 1, opacity: 1 },
+              collapsed: { width: '0', scale: 0.95, opacity: 0.4 },
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {selectedTab === 'Habits' && <HabitsTab />}
+            {selectedTab === 'TimeZones' && <TimeZonesTab />}
+            {selectedTab === 'Settings' && <SettingsTab />}
+          </motion.div>
+        )}
       </aside>
 
       {/* Help Modal */}
@@ -148,6 +147,12 @@ export function SideBar({ className }: SidebarProps) {
           <HelpModal />
         </Modal>
       )}
+      {/* Drawer  */}
+      <Drawer isOpen={isDrawerOpen} onClose={handleDrawer} blur>
+        {selectedTab === 'Habits' && <HabitsTab />}
+        {selectedTab === 'TimeZones' && <TimeZonesTab />}
+        {selectedTab === 'Settings' && <SettingsTab />}
+      </Drawer>
     </>
   )
 }

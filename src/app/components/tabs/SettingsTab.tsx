@@ -24,7 +24,7 @@ export const SettingsTab = () => {
         <h3 className="text-md w-full text-center font-bold">Settings</h3>
       </header>
 
-      <Card className="flex flex-col gap-6">
+      <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
           Hours
         </h4>
@@ -36,11 +36,21 @@ export const SettingsTab = () => {
         <p>Formato 24/12 horas</p>
         <p>Acomodar el switch</p>
       </Card>
-      <Card>
+      <Card className="flex flex-col gap-4">
         <p>Horas previas para marcar una tarea con alerta</p>
         <p>{`<Select/>`} con horas</p>
       </Card>
-      <Card className="flex flex-col gap-6">
+      <Card className="flex flex-col gap-4">
+        <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
+          Tools
+        </h4>
+        <div className="flex flex-col gap-4">
+          <div className="h-10 w-full bg-red-500" />
+          <div className="h-10 w-full bg-red-500" />
+          <div className="h-10 w-full bg-red-500" />
+        </div>
+      </Card>
+      <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
           Theme
         </h4>
