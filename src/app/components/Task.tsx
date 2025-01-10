@@ -1,4 +1,4 @@
-import { Grip, Trash, Eye } from 'lucide-react'
+import { Eye, Grip, Trash } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { Button } from '@/components/ui/Button'

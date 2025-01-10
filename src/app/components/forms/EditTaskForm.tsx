@@ -1,6 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+
 import { TaskType } from '../../types/Tasks.type'
 
 export const EditTaskForm = ({ task }: { task: TaskType }) => {
@@ -105,7 +106,7 @@ export const EditTaskForm = ({ task }: { task: TaskType }) => {
           </div>
         </div>
         <pre>
-          <code>{JSON.stringify(task, null, 2)}</code>
+          <code>{JSON.stringify(task, undefined, 2)}</code>
         </pre>
       </form>
     </>

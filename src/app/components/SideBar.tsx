@@ -2,14 +2,14 @@
 
 import { motion } from 'framer-motion'
 import {
+  ClockAlert,
   Code2,
   Grid,
   HelpCircle,
+  ListTodo,
   PanelTopOpen,
-  ClockAlert,
   Settings,
   SplitSquareVertical,
-  ListTodo,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -19,8 +19,8 @@ import { HelpModal } from './modals/HelpModal'
 import { NavButton } from './NavButton'
 import { HabitsTab } from './tabs/HabitsTab'
 import { SettingsTab } from './tabs/SettingsTab'
-import { Modal } from './ui/Modal'
 import { TimeZonesTab } from './tabs/TimeZonesTab'
+import { Modal } from './ui/Modal'
 
 interface SidebarProps {
   className?: string

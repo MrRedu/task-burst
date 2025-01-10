@@ -2,16 +2,17 @@
 
 import NumberFlow from '@number-flow/react'
 import { Reorder } from 'motion/react'
+import { useState } from 'react'
 
 import { CreateTaskForm } from '@/components/forms/CreateTaskForm'
 import { Task } from '@/components/Task'
 import { ListSkeleton } from '@/components/ui/skeletons/ListSkeleton'
 import { useModal } from '@/hooks/useModal'
 import { useTasks } from '@/stores/tasks/tasks.store'
-import { Modal } from './ui/Modal'
-import { useState } from 'react'
+
 import { TaskType } from '../types/Tasks.type'
 import { EditTaskForm } from './forms/EditTaskForm'
+import { Modal } from './ui/Modal'
 
 export const TasksManager = () => {
   // const { isOpen, openModal, closeModal, modalRef } = useModal()
@@ -23,7 +24,7 @@ export const TasksManager = () => {
   const toggleStatus = useTasks(state => state.toggleStatus)
   const setTasksOrder = useTasks(state => state.setTasksOrder)
 
-  const [taskSelected, setTaskSelected] = useState<TaskType | null>(null)
+  const [taskSelected, setTaskSelected] = useState<TaskType | undefined>()
   const handleOpenModal = (idTask: string) => {
     setTaskSelected(tasks.find(task => task.id === idTask) as TaskType)
     modalToEditTask.openModal()
