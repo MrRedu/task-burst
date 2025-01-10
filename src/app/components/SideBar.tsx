@@ -1,24 +1,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import {
-  ClockAlert,
-  HelpCircle,
-  ListTodo,
-  PanelTopOpen,
-  Settings,
-} from 'lucide-react'
+import { Bug, ClockAlert, ListTodo, PanelTopOpen, Settings } from 'lucide-react'
 import { useState } from 'react'
 
-import { useModal } from '@/hooks/useModal'
-
-import { HelpModal } from './modals/HelpModal'
 import { NavButton } from './NavButton'
 import { HabitsTab } from './tabs/HabitsTab'
 import { SettingsTab } from './tabs/SettingsTab'
 import { TimeZonesTab } from './tabs/TimeZonesTab'
-import { Modal } from './ui/Modal'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '@/hooks/useWindowSize'
 import { Drawer } from './ui/Drawer'
 
 interface SidebarProps {
@@ -33,23 +23,23 @@ type NavButton = {
   isSelected?: boolean
 }
 
-export function SideBar({ className }: SidebarProps) {
-  // const { isOpen, openModal, closeModal, modalRef } = useModal();
-  const helpModal = useModal()
-  const { width } = useWindowSize()
+const TOOLS = [
+  {
+    icon: ListTodo,
+    label: 'Habits',
+  },
+  {
+    icon: ClockAlert,
+    label: 'TimeZones',
+  },
+  {
+    icon: Bug,
+    label: 'Test',
+  },
+]
 
-  const NAV_BUTTONS = [
-    {
-      icon: ListTodo,
-      label: 'Habits',
-      onClick: () => handleTabClick('Habits'),
-    },
-    {
-      icon: ClockAlert,
-      label: 'Second',
-      onClick: () => handleTabClick('TimeZones'),
-    },
-  ]
+export function SideBar({ className }: SidebarProps) {
+  const { width } = useWindowSize()
 
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -60,7 +50,7 @@ export function SideBar({ className }: SidebarProps) {
   const handleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
   }
-  const [selectedTab, setSelectedTab] = useState(NAV_BUTTONS[0].label)
+  const [selectedTab, setSelectedTab] = useState(TOOLS[0].label)
   const handleTabClick = (tab: string) => {
     const isSameTab = tab === selectedTab
     setSelectedTab(tab)
@@ -93,12 +83,12 @@ export function SideBar({ className }: SidebarProps) {
               />
             </button>
             <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
-            {NAV_BUTTONS.map(item => (
+            {TOOLS.map(item => (
               <NavButton
                 key={item.label}
                 icon={item.icon}
                 label={item.label}
-                onClick={item?.onClick && item?.onClick}
+                onClick={() => handleTabClick(item.label)}
                 // href={item?.href && item?.href}
                 isSelected={selectedTab === item.label && !isCollapsed}
               />
@@ -107,14 +97,10 @@ export function SideBar({ className }: SidebarProps) {
           <div className="flex w-fit gap-2 lg:flex-col">
             <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
             <NavButton
-              icon={HelpCircle}
-              label="Help"
-              onClick={helpModal.openModal}
-            />
-            <NavButton
               icon={Settings}
               label="Settings"
               onClick={() => handleTabClick('Settings')}
+              isSelected={selectedTab === 'Settings' && !isCollapsed}
             />
           </div>
         </section>
@@ -136,17 +122,6 @@ export function SideBar({ className }: SidebarProps) {
         )}
       </aside>
 
-      {/* Help Modal */}
-      {helpModal.isOpen && (
-        <Modal
-          onClose={helpModal.closeModal}
-          modalRef={helpModal.modalRef}
-          blur
-          size="lg"
-        >
-          <HelpModal />
-        </Modal>
-      )}
       {/* Drawer  */}
       <Drawer isOpen={isDrawerOpen} onClose={handleDrawer} blur>
         {selectedTab === 'Habits' && <HabitsTab />}

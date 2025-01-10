@@ -39,7 +39,7 @@ export const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`flex items-center justify-center gap-2 rounded-md border-transparent p-2.5 text-center text-sm transition-all duration-300 ease-in-out ${disabled && 'pointer-events-none opacity-50 shadow-none'} ${variant === 'solid' && solidStyles} ${variant === 'ghost' && ghostStyles} ${variant === 'destructive' && destructiveStyles} ${className} `}
+      className={`flex items-center justify-center gap-2 rounded-md border-transparent p-2.5 text-center text-sm transition-all duration-300 ease-in-out ${disabled && 'pointer-events-none opacity-50 shadow-none'} ${variant === 'solid' && solidStyles} ${variant === 'ghost' && ghostStyles} ${variant === 'destructive' && destructiveStyles} ${className}`}
     >
       {isLoading && <Spinner />}
       {!onlyIcon && children}

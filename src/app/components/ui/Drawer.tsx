@@ -11,6 +11,7 @@ export const Drawer = ({
   blur = false,
   children,
 }: DrawerProps) => {
+  // return ReactDOM.createPortal(
   return (
     <>
       <div
@@ -30,5 +31,8 @@ export const Drawer = ({
         {children}
       </div>
     </>
+    // ,
+    // document.body
+    // )
   )
 }
