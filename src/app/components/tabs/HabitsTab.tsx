@@ -3,13 +3,12 @@
 import { PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
+import { CreateHabitForm } from '@/components/forms/CreateHabitForm'
+import { HabitItem } from '@/components/HabitItem'
+import { Modal } from '@/components/ui/Modal'
 import { useModal } from '@/hooks/useModal'
-
-import { useHabits } from '../../stores/habits/habits.store'
-import { type HabitType } from '../../types/Habits.type'
-import { CreateHabitForm } from '../forms/CreateHabitForm'
-import { HabitItem } from '../HabitItem'
-import { Modal } from '../ui/Modal'
+import { useHabits } from '@/stores/habits/habits.store'
+import { type HabitType } from '@/types/Habits.type'
 
 export interface HabitFormInputs {
   title: string
@@ -44,9 +43,11 @@ export const HabitsTab = () => {
 
   return (
     <>
-      <section className="flex h-full w-full flex-col gap-4 p-4 text-c-snow">
+      <section className="flex h-full w-full flex-col gap-4 overflow-y-auto p-4 text-c-snow">
         <header className="flex items-center justify-between">
-          <h3 className="text-md font-bold">Habits</h3>
+          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
+            Habits
+          </h3>
           <button
             aria-label="Create Habit"
             onClick={createHabitFormModal.openModal}

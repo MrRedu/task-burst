@@ -24,7 +24,8 @@
       "@/components/*": ["./src/app/components/*"],
       "@/hooks/*": ["./src/app/hooks/*"],
       "@/utils/*": ["./src/app/utils/*"],
-      "@/stores/*": ["./src/app/stores/*"]
+      "@/stores/*": ["./src/app/stores/*"],
+      "@/types/*": ["./src/app/types/*"]
     },
     "target": "ES2017"
   },

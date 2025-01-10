@@ -1,34 +1,73 @@
+import { motion } from 'framer-motion'
+import React, { Dispatch, SetStateAction } from 'react'
+
 interface CheckboxProps {
-  checked: boolean
-  onChange: () => void
+  isChecked: boolean
+  setIsChecked: Dispatch<SetStateAction<boolean>>
 }
-export const Checkbox = ({ checked, onChange }: CheckboxProps) => {
+
+export const Checkbox: React.FC<CheckboxProps> = ({
+  isChecked,
+  setIsChecked,
+}) => {
+  const checkboxVariants = {
+    checked: {
+      backgroundColor: '#150001',
+      borderColor: '#150001',
+      transition: {
+        duration: 0.5,
+      },
+    },
+    unchecked: {
+      backgroundColor: '#8f8f8f',
+      borderColor: '#8f8f8f',
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
+
+  const checkmarkVariants = {
+    checked: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    unchecked: {
+      pathLength: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
+
+  const spring = {}
+
   return (
-    <div className="inline-flex items-center">
-      <label className="relative flex cursor-pointer items-center">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-          className="peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow transition-all checked:border-slate-800 checked:bg-slate-800 hover:shadow-md"
-          id="check"
+    <motion.div
+      className="flex h-6 w-6 min-w-6 cursor-pointer items-center justify-center rounded-md border-2"
+      variants={checkboxVariants}
+      animate={isChecked ? 'checked' : 'unchecked'}
+      onClick={() => setIsChecked(!isChecked)}
+      whileTap={{
+        scale: 0.8,
+      }}
+    >
+      <svg width="12" height="10" viewBox="0 0 12 10" className="stroke-white">
+        <motion.path
+          fill="none"
+          strokeWidth="2"
+          stroke="white"
+          d="M1 5.5L4 8.5L11 1.5"
+          variants={checkmarkVariants}
+          initial="unchecked"
+          transition={spring}
+          animate={isChecked ? 'checked' : 'unchecked'}
         />
-        <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-white opacity-0 peer-checked:opacity-100">
-          <svg
-            className="h-3.5 w-3.5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            stroke="currentColor"
-            strokeWidth="1"
-          >
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-        </span>
-      </label>
-    </div>
+      </svg>
+    </motion.div>
   )
 }

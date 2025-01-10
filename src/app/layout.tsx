@@ -3,7 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 
-import { Header, SideBar } from '@/components/.'
+import { Header } from '@/components/Header'
+import { SideBar } from '@/components/SideBar'
 
 import { Providers } from './Providers'
 

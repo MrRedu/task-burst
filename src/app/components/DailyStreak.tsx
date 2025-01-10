@@ -1,6 +1,6 @@
 'use client'
 
-import { useHabits } from '../stores/habits/habits.store'
+import { useHabits } from '@/stores/habits/habits.store'
 export const DailyStreak = ({
   completedDays,
   habitId,

@@ -2,15 +2,14 @@
 
 import { motion } from 'framer-motion'
 import {
+  ClockAlert,
   Code2,
-  Github,
   Grid,
   HelpCircle,
+  ListTodo,
   PanelTopOpen,
-  Save,
   Settings,
   SplitSquareVertical,
-  Trophy,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -20,6 +19,7 @@ import { HelpModal } from './modals/HelpModal'
 import { NavButton } from './NavButton'
 import { HabitsTab } from './tabs/HabitsTab'
 import { SettingsTab } from './tabs/SettingsTab'
+import { TimeZonesTab } from './tabs/TimeZonesTab'
 import { Modal } from './ui/Modal'
 
 interface SidebarProps {
@@ -34,24 +34,20 @@ type NavButton = {
   isSelected?: boolean
 }
 
-const SecondTab = () => {
-  return <div className="text-bold text-lg text-c-snow">SecondTab</div>
-}
-
 export function SideBar({ className }: SidebarProps) {
   // const { isOpen, openModal, closeModal, modalRef } = useModal();
   const helpModal = useModal()
 
   const NAV_BUTTONS: NavButton[] = [
     {
-      icon: Trophy,
+      icon: ListTodo,
       label: 'Habits',
       onClick: () => handleTabClick('Habits'),
     },
     {
-      icon: Save,
+      icon: ClockAlert,
       label: 'Second',
-      onClick: () => handleTabClick('Second'),
+      onClick: () => handleTabClick('TimeZones'),
     },
     {
       icon: Grid,
@@ -64,11 +60,6 @@ export function SideBar({ className }: SidebarProps) {
     {
       icon: SplitSquareVertical,
       label: 'Split View',
-    },
-    {
-      icon: Settings,
-      label: 'Settings',
-      onClick: () => handleTabClick('Settings'),
     },
   ]
 
@@ -123,9 +114,9 @@ export function SideBar({ className }: SidebarProps) {
               onClick={helpModal.openModal}
             />
             <NavButton
-              icon={Github}
-              label="GitHub"
-              href="https://github.com/MrRedu/task-burst"
+              icon={Settings}
+              label="Settings"
+              onClick={() => handleTabClick('Settings')}
             />
           </div>
         </section>
@@ -141,7 +132,7 @@ export function SideBar({ className }: SidebarProps) {
           transition={{ duration: 0.3 }}
         >
           {selectedTab === 'Habits' && <HabitsTab />}
-          {selectedTab === 'Second' && <SecondTab />}
+          {selectedTab === 'TimeZones' && <TimeZonesTab />}
           {selectedTab === 'Settings' && <SettingsTab />}
         </motion.div>
       </aside>
