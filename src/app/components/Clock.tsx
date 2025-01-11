@@ -1,7 +1,8 @@
 'use client'
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
 import { useEffect, useState } from 'react'
-import { type TimeType, useTime } from '../stores/settings/Time.store'
+
+import { type TimeType, useTime } from '@/stores/settings/Time.store'
 
 export const Clock = () => {
   const [time, setTime] = useState(new Date())
@@ -15,10 +16,10 @@ export const Clock = () => {
     return () => clearInterval(interval)
   }, [])
 
-  // Función para formatear la hora según el formato seleccionado
-  const getFormattedHours = hours => {
+  // Function to convert 24-hour format to 12-hour format
+  const getFormattedHours = (hours: number) => {
     if (!is24HourFormat) {
-      return hours % 12 || 12 // Convertir a formato de 12 horas
+      return hours % 12 || 12 // Convert to 12-hour format
     }
     return hours
   }

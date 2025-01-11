@@ -1,6 +1,6 @@
 import { Card } from '@/components/Card'
-import { TasksManager } from '@/components/TasksManager'
 import { Clock } from '@/components/Clock'
+import { TasksManager } from '@/components/TasksManager'
 
 export default function HomePage() {
   return (

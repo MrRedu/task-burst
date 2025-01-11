@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import { Card } from '@/components/Card'
 import { Switch } from '@/components/ui/Switch'
-
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
 import { type TimeType, useTime } from '@/stores/settings/Time.store'
 
