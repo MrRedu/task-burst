@@ -36,9 +36,6 @@ export const Task = ({
   id,
   title,
   status,
-  description,
-  // createdAt,
-  // updatedAt,
   toggleStatus,
   removeTask,
   openModal,
@@ -71,19 +68,27 @@ export const Task = ({
           </AnimatePresence>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Button onClick={() => openModal(id)} variant="ghost" className="p-1">
-          <Eye className="text-c-silver hover:text-c-snow" size={18} />
+      <div className="flex items-center">
+        <Button
+          onClick={() => openModal(id)}
+          variant="ghost"
+          className="p-1 text-c-silver hover:text-c-snow"
+        >
+          <Eye size={18} />
         </Button>
-        <Button onClick={() => removeTask(id)} variant="ghost" className="p-1">
-          <Trash className="text-c-silver hover:text-red-500" size={18} />
+        <Button
+          onClick={() => removeTask(id)}
+          variant="ghost"
+          className="p-1 text-c-silver hover:text-red-500"
+        >
+          <Trash size={18} />
         </Button>
         <Button
           onClick={() => console.log('click')}
           variant="ghost"
-          className="cursor-grab p-1"
+          className="cursor-grab p-1 text-c-silver hover:text-c-snow"
         >
-          <Grip className="text-c-silver hover:text-c-snow" size={18} />
+          <Grip size={18} />
         </Button>
       </div>
     </motion.div>

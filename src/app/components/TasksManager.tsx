@@ -62,7 +62,6 @@ export const TasksManager = () => {
                 <Task
                   id={task.id}
                   title={task.title}
-                  description={task.description}
                   startDateTime={task.startDateTime}
                   endDateTime={task.endDateTime}
                   status={task.status}

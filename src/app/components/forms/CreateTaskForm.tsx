@@ -1,5 +1,5 @@
 'use client'
-import { ArrowLeftIcon } from 'lucide-react'
+import { ArrowLeftIcon, PlusIcon } from 'lucide-react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { useEffect, useId } from 'react'
 import { useForm } from 'react-hook-form'
@@ -84,12 +84,10 @@ export const CreateTaskForm = ({
           }}
           onClick={openModal}
         >
-          <motion.span
-            layoutId={`popover-label-${uniqueId}`}
-            className="text-sm"
-          >
-            Create new task
-          </motion.span>
+          <span className="lg:hidden">
+            <PlusIcon size={20} stroke="currentColor" />
+          </span>
+          <span className="hidden lg:block">Create new task</span>
         </motion.button>
 
         <AnimatePresence>

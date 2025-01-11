@@ -40,10 +40,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${quicksand.className} h-screen antialiased`}>
         <Providers>
-          <div className="grid grid-cols-[auto_1fr] grid-rows-[3rem_calc(100vh-3rem-8px)] gap-x-2">
+          <div className="grid h-full w-full grid-cols-1 grid-rows-[48px_auto] px-2">
             <Header className="col-span-2" />
-            <SideBar className="pl-2" />
-            {children}
+            <div className="flex h-full max-h-[calc(100vh-48px)] flex-col gap-2 pb-2 lg:flex-row-reverse">
+              {children}
+              <SideBar />
+            </div>
           </div>
         </Providers>
       </body>
