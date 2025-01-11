@@ -4,26 +4,18 @@ import { motion } from 'framer-motion'
 import { Bug, ClockAlert, ListTodo, PanelTopOpen, Settings } from 'lucide-react'
 import { useState } from 'react'
 
-import { NavButton } from './NavButton'
-import { HabitsTab } from './tabs/HabitsTab'
-import { SettingsTab } from './tabs/SettingsTab'
-import { TimeZonesTab } from './tabs/TimeZonesTab'
+import { HabitsTab } from '@/components/tabs/HabitsTab'
+import { SettingsTab } from '@/components/tabs/SettingsTab'
+import { TimeZonesTab } from '@/components/tabs/TimeZonesTab'
+import { AnimatedBackground } from '@/components/ui/AnimatedBackground'
+import { Drawer } from '@/components/ui/Drawer'
 import { useWindowSize } from '@/hooks/useWindowSize'
-import { Drawer } from './ui/Drawer'
 
 interface SidebarProps {
   className?: string
 }
 
-type NavButton = {
-  icon: React.ElementType
-  label: string
-  onClick?: () => void
-  href?: string
-  isSelected?: boolean
-}
-
-const TOOLS = [
+const TABS = [
   {
     icon: ListTodo,
     label: 'Habits',
@@ -50,7 +42,7 @@ export function SideBar({ className }: SidebarProps) {
   const handleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
   }
-  const [selectedTab, setSelectedTab] = useState(TOOLS[0].label)
+  const [selectedTab, setSelectedTab] = useState(TABS[0].label)
   const handleTabClick = (tab: string) => {
     const isSameTab = tab === selectedTab
     setSelectedTab(tab)
@@ -83,25 +75,52 @@ export function SideBar({ className }: SidebarProps) {
               />
             </button>
             <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
-            {TOOLS.map(item => (
-              <NavButton
-                key={item.label}
-                icon={item.icon}
-                label={item.label}
-                onClick={() => handleTabClick(item.label)}
-                // href={item?.href && item?.href}
-                isSelected={selectedTab === item.label && !isCollapsed}
-              />
-            ))}
+            <AnimatedBackground
+              defaultValue={TABS[0].label}
+              className={`flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800`}
+              transition={{
+                ease: 'easeInOut',
+                duration: 0.2,
+              }}
+              onValueChange={tabSelected => {
+                handleTabClick(tabSelected as string)
+              }}
+            >
+              {TABS.map((tab, index) => (
+                <button
+                  key={index}
+                  data-id={tab.label} // --> This is tabSelected
+                  type="button"
+                  aria-label={`${tab.label} view`}
+                  className="flex h-10 w-10 items-center justify-center gap-2 rounded-lg"
+                >
+                  <tab.icon
+                    className={`h-5 w-5 text-c-disabled ${
+                      selectedTab === tab.label && !isCollapsed
+                        ? 'text-c-snow'
+                        : ''
+                    }`}
+                  />
+                </button>
+              ))}
+            </AnimatedBackground>
           </div>
           <div className="flex w-fit gap-2 lg:flex-col">
             <div className="h-full w-[2px] bg-zinc-700 lg:h-[2px] lg:w-full" />
-            <NavButton
-              icon={Settings}
-              label="Settings"
+            <button
+              type="button"
+              aria-label={`Settings view`}
+              className={`flex h-10 w-10 items-center justify-center gap-2 rounded-lg ${selectedTab === 'Settings' && !isCollapsed ? 'bg-zinc-800' : ''}`}
               onClick={() => handleTabClick('Settings')}
-              isSelected={selectedTab === 'Settings' && !isCollapsed}
-            />
+            >
+              <Settings
+                className={`h-5 w-5 text-c-disabled ${
+                  selectedTab === 'Settings' && !isCollapsed
+                    ? 'text-c-snow'
+                    : ''
+                }`}
+              />
+            </button>
           </div>
         </section>
         {width > 1024 && (

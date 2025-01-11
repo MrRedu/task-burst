@@ -1,7 +1,9 @@
+import Link from 'next/link'
+
 import { Card } from '@/components/Card'
 import { Switch } from '@/components/ui/Switch'
+
 import { ThemeSwitcher } from '../ui/ThemeSwitcher'
-import Link from 'next/link'
 
 export const SettingsTab = () => {
   return (

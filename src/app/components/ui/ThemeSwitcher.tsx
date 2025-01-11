@@ -1,4 +1,5 @@
 import { Monitor, MoonStar, Sun } from 'lucide-react'
+
 import { Button } from './Button'
 
 interface ThemeSwitcherProps {
