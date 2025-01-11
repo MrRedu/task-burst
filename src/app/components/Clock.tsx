@@ -1,24 +1,34 @@
 'use client'
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
 import { useEffect, useState } from 'react'
+import { type TimeType, useTime } from '../stores/settings/Time.store'
 
 export const Clock = () => {
   const [time, setTime] = useState(new Date())
+  const is24HourFormat = useTime((state: TimeType) => state.is24Hour)
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const interval = setInterval(() => {
       setTime(new Date())
     }, 1000)
 
-    return () => clearInterval(intervalId)
+    return () => clearInterval(interval)
   }, [])
+
+  // Función para formatear la hora según el formato seleccionado
+  const getFormattedHours = hours => {
+    if (!is24HourFormat) {
+      return hours % 12 || 12 // Convertir a formato de 12 horas
+    }
+    return hours
+  }
 
   return (
     <>
       <NumberFlowGroup>
-        <div className="text-xl">
+        <div className="font-mono font-black">
           <NumberFlow
-            value={time.getHours()}
+            value={getFormattedHours(time.getHours())}
             format={{ minimumIntegerDigits: 2 }}
           />
           <NumberFlow
@@ -26,6 +36,14 @@ export const Clock = () => {
             prefix=":"
             format={{ minimumIntegerDigits: 2 }}
           />
+          <NumberFlow
+            value={time.getSeconds()}
+            prefix=":"
+            format={{ minimumIntegerDigits: 2 }}
+          />
+          {!is24HourFormat && (
+            <span className="ml-1">{time.getHours() >= 12 ? 'PM' : 'AM'}</span>
+          )}
         </div>
       </NumberFlowGroup>
     </>

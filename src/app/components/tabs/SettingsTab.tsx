@@ -1,17 +1,23 @@
+'use client'
 import Link from 'next/link'
 
 import { Card } from '@/components/Card'
 import { Switch } from '@/components/ui/Switch'
 
-import { ThemeSwitcher } from '../ui/ThemeSwitcher'
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
+import { type TimeType, useTime } from '@/stores/settings/Time.store'
 
 export const SettingsTab = () => {
+  const is24HourFormat = useTime((state: TimeType) => state.is24Hour)
+  const toggle24HourFormat = useTime(state => state.toggle24Hour)
+
   return (
     <section className="flex h-full w-full min-w-[360px] flex-col gap-4 overflow-y-auto p-4 text-c-snow">
       <header className="flex items-center text-center">
         <h3 className="text-md w-full text-center font-bold">Settings</h3>
       </header>
 
+      {/* Tools */}
       <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
           Tools
@@ -23,16 +29,49 @@ export const SettingsTab = () => {
         </div>
       </Card>
 
+      {/* Time */}
       <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
-          Hours
+          Time
         </h4>
         <div className="flex w-full items-center justify-center gap-4">
-          12h
-          <Switch />
-          24h
+          <Switch
+            isOn={is24HourFormat}
+            toggleSwitch={toggle24HourFormat}
+            childrenSwitch={
+              <>
+                {is24HourFormat && (
+                  <span className="absolute left-[25%] -translate-x-1/2 transform text-sm font-semibold text-c-disabled">
+                    12H
+                  </span>
+                )}
+                {!is24HourFormat && (
+                  <span className="absolute right-[25%] translate-x-1/2 transform text-sm font-semibold text-c-disabled">
+                    24H
+                  </span>
+                )}
+              </>
+            }
+            childrenButton={
+              <span className="text-sm font-semibold text-c-snow">
+                {is24HourFormat ? '24H' : '12H'}
+              </span>
+            }
+          />
         </div>
       </Card>
+
+      {/* Theme */}
+      <Card className="flex flex-col gap-4">
+        <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
+          Theme
+        </h4>
+        <div className="flex w-full justify-center gap-4">
+          <ThemeSwitcher />
+        </div>
+      </Card>
+
+      {/* Tasks */}
       <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
           Tasks
@@ -50,14 +89,6 @@ export const SettingsTab = () => {
         </div>
       </Card>
 
-      <Card className="flex flex-col gap-4">
-        <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
-          Theme
-        </h4>
-        <div className="flex w-full justify-center gap-4">
-          <ThemeSwitcher />
-        </div>
-      </Card>
       <Card className="flex flex-col gap-4">
         <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
           About

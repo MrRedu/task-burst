@@ -1,5 +1,6 @@
 import { Card } from '@/components/Card'
 import { TasksManager } from '@/components/TasksManager'
+import { Clock } from '@/components/Clock'
 
 export default function HomePage() {
   return (
@@ -11,9 +12,7 @@ export default function HomePage() {
         <TasksManager />
       </Card>
       <Card className="h-full">
-        {/* Pomodoro */}
-        {/* <Clock /> */}
-        Clock
+        <Clock />
       </Card>
     </section>
   )
