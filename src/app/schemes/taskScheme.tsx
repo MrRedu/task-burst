@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-
 export const taskScheme = z.object({
   title: z
     .string()
@@ -15,10 +14,10 @@ export const taskScheme = z.object({
     .string()
     .trim()
     .optional()
-    .refine(val => val === '' || val!.length >= 6, {
+    .refine(value => value === '' || value!.length >= 6, {
       message: 'Description must be at least 6 characters',
     })
-    .refine(val => val === '' || val!.length <= 256, {
+    .refine(value => value === '' || value!.length <= 256, {
       message: 'Description must be at most 256 characters',
     }),
   startDateTime: z.string(),

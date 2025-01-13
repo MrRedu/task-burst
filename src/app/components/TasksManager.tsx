@@ -5,14 +5,14 @@ import { Reorder } from 'motion/react'
 import { useState } from 'react'
 
 import { CreateTaskForm } from '@/components/forms/CreateTaskForm'
+import { EditTaskForm } from '@/components/forms/EditTaskForm'
 import { Task } from '@/components/Task'
+import { Modal } from '@/components/ui/Modal'
 import { ListSkeleton } from '@/components/ui/skeletons/ListSkeleton'
 import { useModal } from '@/hooks/useModal'
 import { useTasks } from '@/stores/tasks/tasks.store'
 
 import { TaskType } from '../types/Tasks.type'
-import { EditTaskForm } from './forms/EditTaskForm'
-import { Modal } from './ui/Modal'
 
 export const TasksManager = () => {
   // const { isOpen, openModal, closeModal, modalRef } = useModal()
