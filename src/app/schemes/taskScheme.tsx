@@ -18,20 +18,22 @@ export const taskScheme = z
         message: 'Description must be at most 256 characters',
       }),
 
-    startDateTime: z.string().refine(value => !isNaN(Date.parse(value)), {
-      message: 'Start date must be a valid date',
-    }),
+    startDateTime: z
+      .string()
+      .refine(value => !Number.isNaN(Date.parse(value)), {
+        message: 'Start date must be a valid date',
+      }),
 
-    endDateTime: z.string().refine(value => !isNaN(Date.parse(value)), {
+    endDateTime: z.string().refine(value => !Number.isNaN(Date.parse(value)), {
       message: 'End date must be a valid date',
     }),
   })
-  .superRefine((data, ctx) => {
+  .superRefine((data, context) => {
     const startDate = new Date(data.startDateTime)
     const endDate = new Date(data.endDateTime)
 
     if (endDate < startDate) {
-      ctx.addIssue({
+      context.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'End date cannot be earlier than start date',
         path: ['endDateTime'],
