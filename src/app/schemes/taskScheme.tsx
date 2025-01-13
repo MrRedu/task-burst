@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-const priority = ['low', 'medium', 'high'] as const
 
 export const taskScheme = z.object({
   title: z
@@ -22,7 +21,6 @@ export const taskScheme = z.object({
     .refine(val => val === '' || val!.length <= 256, {
       message: 'Description must be at most 256 characters',
     }),
-  priority: z.enum(priority),
   startDateTime: z.string(),
   endDateTime: z.string(),
 })

@@ -7,7 +7,7 @@ export default function HomePage() {
     <section
       className={`relative flex h-full w-full grid-cols-2 flex-col gap-6 overflow-y-auto rounded-xl bg-c-woodsmoke bg-[radial-gradient(#4d4d4d,transparent_1px)] p-4 [background-size:24px_24px] md:grid`}
     >
-      <Card className="h-full">Algo</Card>
+      <Card className="h-full">Calendario con tareas</Card>
       <Card className="row-span-2">
         <TasksManager />
       </Card>

@@ -8,7 +8,6 @@ import { taskScheme } from '../schemes/taskScheme'
 export interface TaskFormInputs {
   title: string
   description?: string
-  priority: string
   startDateTime: string
   endDateTime: string
 }
@@ -37,7 +36,6 @@ export function useTask({
       id: globalThis.crypto.randomUUID(),
       title: data.title,
       description: data.description,
-      priority: data.priority,
       status: false,
       startDateTime: new Date(data.startDateTime),
       endDateTime: new Date(data.endDateTime),
