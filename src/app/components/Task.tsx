@@ -39,7 +39,7 @@ export const Task = ({
   toggleStatus,
   removeTask,
   openModal,
-}: TaskType & {
+}: Pick<TaskType, 'id' | 'title' | 'status'> & {
   toggleStatus: (id: string) => void
   removeTask: (id: string) => void
   openModal: (id: string) => void
@@ -51,7 +51,7 @@ export const Task = ({
         <div className="relative">
           <span
             className="cursor-pointer truncate"
-            onClick={() => toggleStatus(id)}
+            onClick={() => openModal(id)}
           >
             {title}
           </span>
