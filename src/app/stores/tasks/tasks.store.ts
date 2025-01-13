@@ -9,6 +9,7 @@ interface TaskState {
   tasks: TaskType[]
 
   addTask: (task: TaskType) => void
+  editTask: (task: TaskType) => void
   removeTask: (id: string) => void
   toggleStatus: (id: string) => void
 
@@ -33,6 +34,12 @@ export const useTasks = create<TaskState>()(
           }
           return { tasks: [task, ...state.tasks] }
         }),
+      editTask: task =>
+        set(state => ({
+          tasks: state.tasks.map(t =>
+            t.id === task.id ? { ...t, ...task } : t
+          ),
+        })),
       removeTask: id =>
         set(state => ({
           tasks: state.tasks.filter(task => task.id !== id),

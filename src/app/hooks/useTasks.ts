@@ -14,7 +14,7 @@ export interface TaskFormInputs {
   endDateTime: string
 }
 
-export function useTask({
+export function useCreateTask({
   openModal,
   closeModal,
 }: {
@@ -33,7 +33,6 @@ export function useTask({
     resolver: zodResolver(taskScheme),
   })
   const onSubmit = handleSubmit(data => {
-    console.log(data)
     addTask({
       id: globalThis.crypto.randomUUID(),
       title: data.title,
@@ -66,5 +65,47 @@ export function useTask({
     errors,
     onSubmit,
     reset,
+  }
+}
+
+export function useEditTask({
+  task,
+  closeModal,
+}: {
+  task: TaskType
+  closeModal: () => void
+}) {
+  const editTask = useTasks(state => state.editTask)
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<TaskFormInputs>({
+    defaultValues: {
+      title: task.title,
+      description: task.description,
+      startDateTime: new Date(task.startDateTime).toISOString().slice(0, 16),
+      endDateTime: new Date(task.endDateTime).toISOString().slice(0, 16),
+    },
+    resolver: zodResolver(taskScheme),
+  })
+
+  const onSubmit = handleSubmit(data => {
+    editTask({
+      ...task,
+      title: data.title,
+      description: data.description,
+      startDateTime: new Date(data.startDateTime),
+      endDateTime: new Date(data.endDateTime),
+      updatedAt: new Date(),
+    } as TaskType)
+    closeModal()
+  })
+
+  return {
+    register,
+    onSubmit,
+    errors,
   }
 }

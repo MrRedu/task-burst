@@ -77,7 +77,10 @@ export const TasksManager = () => {
           blur
           size="lg"
         >
-          <EditTaskForm task={taskSelected!} />
+          <EditTaskForm
+            task={taskSelected!}
+            closeModal={modalToEditTask.closeModal}
+          />
         </Modal>
       )}
     </>

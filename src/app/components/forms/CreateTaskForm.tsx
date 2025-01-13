@@ -5,17 +5,16 @@ import { useId } from 'react'
 
 import { Button } from '@/components/ui/Button'
 import { useModal } from '@/hooks/useModal'
-import { useTask } from '@/hooks/useTask'
-
-import { FormItem } from '../ui/forms/FormItem'
-import { HelperText } from '../ui/forms/HelperText'
-import { Input } from '../ui/forms/Input'
-import { Label } from '../ui/forms/Label'
+import { useCreateTask } from '@/hooks/useTasks'
+import { FormItem } from '@/components/ui/forms/FormItem'
+import { HelperText } from '@/components/ui/forms/HelperText'
+import { Input } from '@/components/ui/forms/Input'
+import { Label } from '@/components/ui/forms/Label'
 
 export const CreateTaskForm = () => {
   const uniqueId = useId()
   const { isOpen, openModal, closeModal, modalRef } = useModal()
-  const { register, errors, onSubmit, reset } = useTask({
+  const { register, errors, onSubmit, reset } = useCreateTask({
     openModal,
     closeModal,
   })
@@ -99,6 +98,11 @@ export const CreateTaskForm = () => {
                       placeholder="Start date"
                       {...register('startDateTime')}
                     />
+                    {errors?.startDateTime && (
+                      <HelperText variant="error">
+                        {errors?.startDateTime?.message}
+                      </HelperText>
+                    )}
                   </FormItem>
                   <FormItem>
                     <Label htmlFor="endDateTime">End date</Label>
@@ -107,6 +111,11 @@ export const CreateTaskForm = () => {
                       type="datetime-local"
                       {...register('endDateTime')}
                     />
+                    {errors?.endDateTime && (
+                      <HelperText variant="error">
+                        {errors?.endDateTime?.message}
+                      </HelperText>
+                    )}
                   </FormItem>
                 </FormItem>
 
