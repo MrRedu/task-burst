@@ -1,7 +1,7 @@
 export type TaskType = {
   id: string
   title: string
-  description?: string
+  description: string
   startDateTime: Date
   endDateTime: Date
   status: boolean

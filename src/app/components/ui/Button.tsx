@@ -3,7 +3,6 @@ import { Spinner } from '@/components/ui/skeletons/Spinner'
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   className?: string
-  type?: 'submit' | 'reset' | 'button'
   href?: string
   icon?: React.ElementType
   onlyIcon?: boolean

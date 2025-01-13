@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@formkit/tempo": "0.1.2",
+    "@hookform/resolvers": "3.10.0",
     "@number-flow/react": "0.4.1",
     "clsx": "2.1.1",
     "eslint-config-next": "^15.1.2",
@@ -24,6 +25,7 @@
     "react-hook-form": "^7.54.2",
     "sonner": "1.7.0",
     "tailwind-merge": "2.6.0",
+    "zod": "3.24.1",
     "zustand": "5.0.1"
   },
   "devDependencies": {

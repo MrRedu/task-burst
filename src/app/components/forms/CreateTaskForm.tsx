@@ -1,70 +1,23 @@
 'use client'
 import { ArrowLeftIcon, PlusIcon } from 'lucide-react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
-import { useEffect, useId } from 'react'
-import { useForm } from 'react-hook-form'
+import { useId } from 'react'
 
-import { type TaskType } from '@/app/types/Tasks.type'
 import { Button } from '@/components/ui/Button'
-import { useTasks } from '@/stores/tasks/tasks.store'
+import { FormItem } from '@/components/ui/forms/FormItem'
+import { HelperText } from '@/components/ui/forms/HelperText'
+import { Input } from '@/components/ui/forms/Input'
+import { Label } from '@/components/ui/forms/Label'
+import { useModal } from '@/hooks/useModal'
+import { useCreateTask } from '@/hooks/useTasks'
 
-interface TaskFormInputs {
-  title: string
-  description?: string
-  startDateTime: string
-  endDateTime: string
-}
-
-interface CreateTaskForm {
-  isOpen: boolean
-  openModal: () => void
-  closeModal: () => void
-  modalRef: React.RefObject<HTMLDivElement | null>
-}
-
-export const CreateTaskForm = ({
-  isOpen,
-  openModal,
-  closeModal,
-  modalRef,
-}: CreateTaskForm) => {
+export const CreateTaskForm = () => {
   const uniqueId = useId()
-  const addTask = useTasks(state => state.addTask)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-  } = useForm<TaskFormInputs>()
-  const onSubmit = handleSubmit(data => {
-    addTask({
-      id: globalThis.crypto.randomUUID(),
-      title: data.title,
-      description: data.description,
-      status: false,
-      startDateTime: new Date(data.startDateTime),
-      endDateTime: new Date(data.endDateTime),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    } as TaskType)
-    closeModal()
-    reset()
+  const { isOpen, openModal, closeModal, modalRef } = useModal()
+  const { register, errors, onSubmit, reset } = useCreateTask({
+    openModal,
+    closeModal,
   })
-
-  // Set default values for startDateTime and endDateTime
-  useEffect(() => {
-    const now = new Date()
-    const formattedNow = now.toISOString().slice(0, 16) // Formato a YYYY-MM-DDTHH:MM
-    setValue('startDateTime', formattedNow)
-
-    // Calcular la fecha de fin (un día más)
-    const endDate = new Date(now)
-    endDate.setDate(now.getDate() + 1) // Sumar un día
-    const formattedEndDate = endDate.toISOString().slice(0, 16) // Formato a YYYY-MM-DDTHH:MM
-    setValue('endDateTime', formattedEndDate)
-  }, [setValue, openModal])
 
   return (
     <MotionConfig
@@ -101,91 +54,79 @@ export const CreateTaskForm = ({
               }}
             >
               <form
-                className="flex h-full flex-col gap-2 p-4"
+                className="flex h-full flex-col gap-4 p-4"
                 onSubmit={onSubmit}
               >
-                <div className="flex flex-col">
-                  <label htmlFor="title">
-                    <span className="text-sm font-bold">Title</span>
-                    <span className="text-red-500">{` * `}</span>
-                  </label>
-                  <input
+                <FormItem>
+                  <Label htmlFor="title" isRequired>
+                    Title
+                  </Label>
+                  <Input
                     id="title"
                     type="text"
                     autoFocus
-                    className="bg-transparent py-3 pl-1 text-sm outline-none"
                     placeholder="Create article about flex-box"
-                    {...register('title', {
-                      required: 'Title is required',
-                      minLength: {
-                        value: 3,
-                        message: 'Title must be at least 3 characters',
-                      },
-                    })}
+                    {...register('title')}
                   />
                   {errors?.title && (
-                    <span className="text-xs font-semibold text-red-500">
+                    <HelperText variant="error">
                       {errors?.title?.message}
-                    </span>
+                    </HelperText>
                   )}
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="description">
-                    <span className="text-sm font-bold">Description</span>
-                    {/* <span className="text-red-500">{` * `}</span> */}
-                  </label>
+                </FormItem>
+                <FormItem>
+                  <Label htmlFor="description">Description</Label>
                   <textarea
                     id="description"
                     className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
                     placeholder="Article about flex-box with Tailwind CSS"
-                    {...register('description', {
-                      minLength: {
-                        value: 3,
-                        message: 'Description must be at least 3 characters',
-                      },
-                    })}
+                    {...register('description')}
                   />
                   {errors?.description && (
-                    <span className="text-xs font-semibold text-red-500">
+                    <HelperText variant="error">
                       {errors?.description?.message}
-                    </span>
+                    </HelperText>
                   )}
-                </div>
-                <div className="flex flex-col gap-2 md:flex-row">
-                  <div>
-                    <label htmlFor="startDateTime">
-                      <span className="text-sm font-bold">Start date</span>
-                    </label>
-                    <input
+                </FormItem>
+
+                <FormItem className="gap-4 lg:flex-row">
+                  <FormItem>
+                    <Label htmlFor="startDateTime">Start date</Label>
+                    <Input
                       id="startDateTime"
                       type="datetime-local"
                       placeholder="Start date"
-                      className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
-                      {...register('startDateTime', {
-                        required: 'Start date is required',
-                      })}
+                      {...register('startDateTime')}
                     />
-                  </div>
-                  <div>
-                    <label htmlFor="endDateTime">
-                      <span className="text-sm font-bold">End date</span>
-                    </label>
-                    <input
+                    {errors?.startDateTime && (
+                      <HelperText variant="error">
+                        {errors?.startDateTime?.message}
+                      </HelperText>
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    <Label htmlFor="endDateTime">End date</Label>
+                    <Input
                       id="endDateTime"
                       type="datetime-local"
-                      className="w-full resize-none bg-transparent py-3 pl-1 text-sm outline-none"
-                      {...register('endDateTime', {
-                        required: 'End date is required',
-                      })}
+                      {...register('endDateTime')}
                     />
-                  </div>
-                </div>
+                    {errors?.endDateTime && (
+                      <HelperText variant="error">
+                        {errors?.endDateTime?.message}
+                      </HelperText>
+                    )}
+                  </FormItem>
+                </FormItem>
 
-                <div key="close" className="flex justify-between">
+                <div className="flex justify-between">
                   <Button
                     aria-label="Close popover"
                     variant="ghost"
-                    onClick={closeModal}
+                    onClick={() => {
+                      closeModal()
+                      reset()
+                    }}
                   >
                     <ArrowLeftIcon
                       size={16}

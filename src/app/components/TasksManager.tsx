@@ -5,18 +5,17 @@ import { Reorder } from 'motion/react'
 import { useState } from 'react'
 
 import { CreateTaskForm } from '@/components/forms/CreateTaskForm'
+import { EditTaskForm } from '@/components/forms/EditTaskForm'
 import { Task } from '@/components/Task'
+import { Modal } from '@/components/ui/Modal'
 import { ListSkeleton } from '@/components/ui/skeletons/ListSkeleton'
 import { useModal } from '@/hooks/useModal'
 import { useTasks } from '@/stores/tasks/tasks.store'
 
 import { TaskType } from '../types/Tasks.type'
-import { EditTaskForm } from './forms/EditTaskForm'
-import { Modal } from './ui/Modal'
 
 export const TasksManager = () => {
   // const { isOpen, openModal, closeModal, modalRef } = useModal()
-  const modalToAddTask = useModal()
   const modalToEditTask = useModal()
 
   const tasks = useTasks(state => state.tasks)
@@ -38,12 +37,7 @@ export const TasksManager = () => {
             <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-c-snow">
               Tasks manager
             </h2>
-            <CreateTaskForm
-              isOpen={modalToAddTask.isOpen}
-              openModal={modalToAddTask.openModal}
-              closeModal={modalToAddTask.closeModal}
-              modalRef={modalToAddTask.modalRef}
-            />
+            <CreateTaskForm />
           </div>
           <span className={`pointer-events-none ml-auto text-sm text-c-silver`}>
             (<NumberFlow value={tasks.length} />
@@ -62,11 +56,7 @@ export const TasksManager = () => {
                 <Task
                   id={task.id}
                   title={task.title}
-                  startDateTime={task.startDateTime}
-                  endDateTime={task.endDateTime}
                   status={task.status}
-                  createdAt={task.createdAt}
-                  updatedAt={task.updatedAt}
                   toggleStatus={toggleStatus}
                   removeTask={removeTask}
                   openModal={handleOpenModal}
@@ -87,7 +77,10 @@ export const TasksManager = () => {
           blur
           size="lg"
         >
-          <EditTaskForm task={taskSelected!} />
+          <EditTaskForm
+            task={taskSelected!}
+            closeModal={modalToEditTask.closeModal}
+          />
         </Modal>
       )}
     </>
